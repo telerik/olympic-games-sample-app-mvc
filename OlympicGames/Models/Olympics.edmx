@@ -1,0 +1,395 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OlympicsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\WORK\SAMPLEAPPSMVC\OLYMPICGAMES\OLYMPICGAMES\APP_DATA\OLYMPICS.MDF.dbo.athletes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="athletes">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="firstName" />
+            <PropertyRef Name="middleName" />
+            <PropertyRef Name="lastName" />
+            <PropertyRef Name="country" />
+            <PropertyRef Name="sport" />
+            <PropertyRef Name="url" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="firstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="middleName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="country" Type="int" Nullable="false" />
+          <Property Name="sport" Type="int" Nullable="false" />
+          <Property Name="birthday" Type="date" />
+          <Property Name="url" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\WORK\SAMPLEAPPSMVC\OLYMPICGAMES\OLYMPICGAMES\APP_DATA\OLYMPICS.MDF.dbo.countries' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="countries">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="abbr" Type="nchar" MaxLength="3" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\WORK\SAMPLEAPPSMVC\OLYMPICGAMES\OLYMPICGAMES\APP_DATA\OLYMPICS.MDF.dbo.games' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="games">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="city" />
+            <PropertyRef Name="country" />
+            <PropertyRef Name="year" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="country" Type="int" Nullable="false" />
+          <Property Name="year" Type="smallint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\WORK\SAMPLEAPPSMVC\OLYMPICGAMES\OLYMPICGAMES\APP_DATA\OLYMPICS.MDF.dbo.medals' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="medals">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\WORK\SAMPLEAPPSMVC\OLYMPICGAMES\OLYMPICGAMES\APP_DATA\OLYMPICS.MDF.dbo.results' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="results">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="athlete" />
+            <PropertyRef Name="game" />
+            <PropertyRef Name="event" />
+            <PropertyRef Name="country" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="athlete" Type="int" Nullable="false" />
+          <Property Name="game" Type="int" Nullable="false" />
+          <Property Name="event" Type="int" Nullable="false" />
+          <Property Name="country" Type="int" Nullable="false" />
+          <Property Name="medal" Type="int" />
+          <Property Name="result" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\WORK\SAMPLEAPPSMVC\OLYMPICGAMES\OLYMPICGAMES\APP_DATA\OLYMPICS.MDF.dbo.results1' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="results1">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="athlete" />
+            <PropertyRef Name="game" />
+            <PropertyRef Name="event" />
+            <PropertyRef Name="country" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="athlete" Type="int" Nullable="false" />
+          <Property Name="game" Type="int" Nullable="false" />
+          <Property Name="event" Type="int" Nullable="false" />
+          <Property Name="country" Type="int" Nullable="false" />
+          <Property Name="medal" Type="int" />
+          <Property Name="result" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\WORK\SAMPLEAPPSMVC\OLYMPICGAMES\OLYMPICGAMES\APP_DATA\OLYMPICS.MDF.dbo.sports' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="sports">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="abbr" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="abbr" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="category" Type="int" />
+        </EntityType>
+        <EntityContainer Name="OlympicsModelStoreContainer">
+          <EntitySet Name="athletes" EntityType="Self.athletes" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [athletes].[id] AS [id], 
+    [athletes].[firstName] AS [firstName], 
+    [athletes].[middleName] AS [middleName], 
+    [athletes].[lastName] AS [lastName], 
+    [athletes].[country] AS [country], 
+    [athletes].[sport] AS [sport], 
+    [athletes].[birthday] AS [birthday], 
+    [athletes].[url] AS [url]
+    FROM [dbo].[athletes] AS [athletes]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="countries" EntityType="Self.countries" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [countries].[id] AS [id], 
+    [countries].[name] AS [name], 
+    [countries].[abbr] AS [abbr]
+    FROM [dbo].[countries] AS [countries]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="games" EntityType="Self.games" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [games].[id] AS [id], 
+    [games].[name] AS [name], 
+    [games].[city] AS [city], 
+    [games].[country] AS [country], 
+    [games].[year] AS [year]
+    FROM [dbo].[games] AS [games]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="medals" EntityType="Self.medals" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [medals].[id] AS [id], 
+    [medals].[name] AS [name]
+    FROM [dbo].[medals] AS [medals]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="results" EntityType="Self.results" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [results].[id] AS [id], 
+    [results].[athlete] AS [athlete], 
+    [results].[game] AS [game], 
+    [results].[event] AS [event], 
+    [results].[country] AS [country], 
+    [results].[medal] AS [medal], 
+    [results].[result] AS [result]
+    FROM [dbo].[results] AS [results]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="results1" EntityType="Self.results1" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [results1].[id] AS [id], 
+    [results1].[athlete] AS [athlete], 
+    [results1].[game] AS [game], 
+    [results1].[event] AS [event], 
+    [results1].[country] AS [country], 
+    [results1].[medal] AS [medal], 
+    [results1].[result] AS [result]
+    FROM [dbo].[results1] AS [results1]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="sports" EntityType="Self.sports" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [sports].[id] AS [id], 
+    [sports].[name] AS [name], 
+    [sports].[abbr] AS [abbr], 
+    [sports].[category] AS [category]
+    FROM [dbo].[sports] AS [sports]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OlympicsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="athlete">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="firstName" />
+            <PropertyRef Name="middleName" />
+            <PropertyRef Name="lastName" />
+            <PropertyRef Name="country" />
+            <PropertyRef Name="sport" />
+            <PropertyRef Name="url" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="firstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="middleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="country" Type="Int32" Nullable="false" />
+          <Property Name="sport" Type="Int32" Nullable="false" />
+          <Property Name="birthday" Type="DateTime" Precision="0" />
+          <Property Name="url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="country">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="abbr" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="game">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="city" />
+            <PropertyRef Name="country" />
+            <PropertyRef Name="year" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="country" Type="Int32" Nullable="false" />
+          <Property Name="year" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="medal">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="result">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="athlete" />
+            <PropertyRef Name="game" />
+            <PropertyRef Name="event" />
+            <PropertyRef Name="country" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="athlete" Type="Int32" Nullable="false" />
+          <Property Name="game" Type="Int32" Nullable="false" />
+          <Property Name="event" Type="Int32" Nullable="false" />
+          <Property Name="country" Type="Int32" Nullable="false" />
+          <Property Name="medal" Type="Int32" />
+          <Property Name="result1" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="results1">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="athlete" />
+            <PropertyRef Name="game" />
+            <PropertyRef Name="event" />
+            <PropertyRef Name="country" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="athlete" Type="Int32" Nullable="false" />
+          <Property Name="game" Type="Int32" Nullable="false" />
+          <Property Name="event" Type="Int32" Nullable="false" />
+          <Property Name="country" Type="Int32" Nullable="false" />
+          <Property Name="medal" Type="Int32" />
+          <Property Name="result" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="sport">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="abbr" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="abbr" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="category" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="OlympicsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="athletes" EntityType="Self.athlete" />
+          <EntitySet Name="countries" EntityType="Self.country" />
+          <EntitySet Name="games" EntityType="Self.game" />
+          <EntitySet Name="medals" EntityType="Self.medal" />
+          <EntitySet Name="results" EntityType="Self.result" />
+          <EntitySet Name="results1" EntityType="Self.results1" />
+          <EntitySet Name="sports" EntityType="Self.sport" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OlympicsModelStoreContainer" CdmEntityContainer="OlympicsEntities">
+          <EntitySetMapping Name="athletes">
+            <EntityTypeMapping TypeName="OlympicsModel.athlete">
+              <MappingFragment StoreEntitySet="athletes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="middleName" ColumnName="middleName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="sport" ColumnName="sport" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="url" ColumnName="url" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="countries">
+            <EntityTypeMapping TypeName="OlympicsModel.country">
+              <MappingFragment StoreEntitySet="countries">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="abbr" ColumnName="abbr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="games">
+            <EntityTypeMapping TypeName="OlympicsModel.game">
+              <MappingFragment StoreEntitySet="games">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="year" ColumnName="year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="medals">
+            <EntityTypeMapping TypeName="OlympicsModel.medal">
+              <MappingFragment StoreEntitySet="medals">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="results">
+            <EntityTypeMapping TypeName="OlympicsModel.result">
+              <MappingFragment StoreEntitySet="results">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="athlete" ColumnName="athlete" />
+                <ScalarProperty Name="game" ColumnName="game" />
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="medal" ColumnName="medal" />
+                <ScalarProperty Name="result1" ColumnName="result" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="results1">
+            <EntityTypeMapping TypeName="OlympicsModel.results1">
+              <MappingFragment StoreEntitySet="results1">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="athlete" ColumnName="athlete" />
+                <ScalarProperty Name="game" ColumnName="game" />
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="medal" ColumnName="medal" />
+                <ScalarProperty Name="result" ColumnName="result" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sports">
+            <EntityTypeMapping TypeName="OlympicsModel.sport">
+              <MappingFragment StoreEntitySet="sports">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="abbr" ColumnName="abbr" />
+                <ScalarProperty Name="category" ColumnName="category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
