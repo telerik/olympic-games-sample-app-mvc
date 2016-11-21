@@ -165,6 +165,10 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="WebAPIControllers\CountriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="WebAPIControllers\GamesController.cs" />
+    <Compile Include="WebAPIControllers\ResultsController.cs" />
+    <Compile Include="WebAPIControllers\AthletesController.cs" />
+    <Compile Include="WebAPIControllers\MedalsController.cs" />
     <Compile Include="WebAPIControllers\SportsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">

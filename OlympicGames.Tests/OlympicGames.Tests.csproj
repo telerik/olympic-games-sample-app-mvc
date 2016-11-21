@@ -109,6 +109,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\GamesControllerTest.cs" />
+    <Compile Include="Controllers\AthletesControllerTest.cs" />
+    <Compile Include="Controllers\ResultsControllerTest.cs" />
+    <Compile Include="Controllers\MedalsControllerTest.cs" />
     <Compile Include="Controllers\SportsControllerTest.cs" />
     <Compile Include="Controllers\CountriesControllerTest.cs" />
     <Compile Include="Controllers\TestHelpers.cs" />

@@ -19,18 +19,27 @@ namespace OlympicGames.Tests.Controllers
     [TestClass]
     public class CountriesControllerTest
     {
+        private Mock<OlympicsEntities> mockContext;
+        private Mock<DbSet<country>> mockSet;
+        private readonly List<country> data = new List<country>
+        {
+            new country() { name = "name1", abbr = "abbr1", id = 1 }
+        };
+
+        [TestInitialize()]
+        public void Initialize()
+        {
+            this.mockContext = new Mock<OlympicsEntities>();
+            this.mockSet = new Mock<DbSet<country>>();
+            this.mockContext.Setup(m => m.countries).Returns(mockSet.Object);
+        }
 
         [TestMethod]
         public void Get_Should_Return_Items()
         {
-            var data = new List<country>
-            {
-                new country() { name = "name1", abbr = "abbr1", id = 1 }
-            }.AsQueryable();
+            TestHelpers.SetupDbSet(this.mockSet, this.data);
 
-            Mock<OlympicsEntities> mockedContext = TestHelpers.GetMockedContext(data);
-
-            CountriesController controller = new CountriesController(mockedContext.Object);
+            CountriesController controller = new CountriesController(this.mockContext.Object);
 
             IQueryable<country> result = controller.GetCountries();
 
@@ -41,13 +50,9 @@ namespace OlympicGames.Tests.Controllers
         [TestMethod]
         public void Get_Zero_Items()
         {
-            var data = new List<country>
-            {
-            }.AsQueryable();
+            TestHelpers.SetupDbSet(this.mockSet, new List<country>());
 
-            Mock<OlympicsEntities> mockedContext = TestHelpers.GetMockedContext(data);
-
-            CountriesController controller = new CountriesController(mockedContext.Object);
+            CountriesController controller = new CountriesController(this.mockContext.Object);
 
             IQueryable<country> result = controller.GetCountries();
 
@@ -58,14 +63,9 @@ namespace OlympicGames.Tests.Controllers
         [TestMethod]
         public void Get_Country_By_ID_Should_Return_Country()
         {
-            var data = new List<country>
-            {
-                new country() { name = "name1", abbr = "abbr1", id = 1 }
-            }.AsQueryable();
+            TestHelpers.SetupDbSet(this.mockSet, this.data);
 
-            Mock<OlympicsEntities> mockedContext = TestHelpers.GetMockedContext(data);
-
-            CountriesController controller = new CountriesController(mockedContext.Object);
+            CountriesController controller = new CountriesController(this.mockContext.Object);
             controller.Request = new HttpRequestMessage();
             controller.Configuration = new HttpConfiguration();
 

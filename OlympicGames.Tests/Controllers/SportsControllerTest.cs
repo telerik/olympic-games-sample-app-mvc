@@ -20,17 +20,27 @@ namespace OlympicGames.Tests.Controllers
     public class SportsControllerTest
     {
 
+        private Mock<OlympicsEntities> mockContext;
+        private Mock<DbSet<sport>> mockSet;
+        private readonly List<sport> data = new List<sport>
+        {
+            new sport() { abbr="abbr", category=1, id=1, name="name" }
+        };
+
+        [TestInitialize()]
+        public void Initialize()
+        {
+            this.mockContext = new Mock<OlympicsEntities>();
+            this.mockSet = new Mock<DbSet<sport>>();
+            this.mockContext.Setup(m => m.sports).Returns(mockSet.Object);
+        }
+
         [TestMethod]
         public void Get_Should_Return_Items()
         {
-            var data = new List<sport>
-            {
-                new sport() { abbr="abbr", category=1, id=1, name="name" }
-            }.AsQueryable();
+            TestHelpers.SetupDbSet(this.mockSet, this.data);
 
-            Mock<OlympicsEntities> mockedContext = TestHelpers.GetMockedContext(data);
-
-            SportsController controller = new SportsController(mockedContext.Object);
+            SportsController controller = new SportsController(this.mockContext.Object);
 
             IQueryable<sport> result = controller.GetSports();
 
@@ -41,13 +51,9 @@ namespace OlympicGames.Tests.Controllers
         [TestMethod]
         public void Get_Zero_Items()
         {
-            var data = new List<sport>
-            {
-            }.AsQueryable();
+            TestHelpers.SetupDbSet(this.mockSet, new List<sport>());
 
-            Mock<OlympicsEntities> mockedContext = TestHelpers.GetMockedContext(data);
-
-            SportsController controller = new SportsController(mockedContext.Object);
+            SportsController controller = new SportsController(this.mockContext.Object);
 
             IQueryable<sport> result = controller.GetSports();
 
@@ -56,16 +62,11 @@ namespace OlympicGames.Tests.Controllers
         }
 
         [TestMethod]
-        public void Get_sport_By_ID_Should_Return_sport()
+        public void Get_Sport_By_ID_Should_Return_Sport()
         {
-            var data = new List<sport>
-            {
-                new sport() { abbr="abbr", category=1, id=1, name="name" }
-            }.AsQueryable();
+            TestHelpers.SetupDbSet(this.mockSet, this.data);
 
-            Mock<OlympicsEntities> mockedContext = TestHelpers.GetMockedContext(data);
-
-            SportsController controller = new SportsController(mockedContext.Object);
+            SportsController controller = new SportsController(this.mockContext.Object);
             controller.Request = new HttpRequestMessage();
             controller.Configuration = new HttpConfiguration();
 
