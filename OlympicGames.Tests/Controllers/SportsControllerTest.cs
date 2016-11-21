@@ -14,25 +14,25 @@ using System.Web.Http.Results;
 namespace OlympicGames.Tests.Controllers
 {
     /// <summary>
-    /// Tests for CountriesControllerTest
+    /// Tests for SportsControllerTest
     /// </summary>
     [TestClass]
-    public class CountriesControllerTest
+    public class SportsControllerTest
     {
 
         [TestMethod]
         public void Get_Should_Return_Items()
         {
-            var data = new List<country>
+            var data = new List<sport>
             {
-                new country() { name = "name1", abbr = "abbr1", id = 1 }
+                new sport() { abbr="abbr", category=1, id=1, name="name" }
             }.AsQueryable();
 
             Mock<OlympicsEntities> mockedContext = TestHelpers.GetMockedContext(data);
 
-            CountriesController controller = new CountriesController(mockedContext.Object);
+            SportsController controller = new SportsController(mockedContext.Object);
 
-            IQueryable<country> result = controller.GetCountries();
+            IQueryable<sport> result = controller.GetSports();
 
             Assert.IsNotNull(result);
             Assert.AreNotEqual(0, result.Count());
@@ -41,37 +41,37 @@ namespace OlympicGames.Tests.Controllers
         [TestMethod]
         public void Get_Zero_Items()
         {
-            var data = new List<country>
+            var data = new List<sport>
             {
             }.AsQueryable();
 
             Mock<OlympicsEntities> mockedContext = TestHelpers.GetMockedContext(data);
 
-            CountriesController controller = new CountriesController(mockedContext.Object);
+            SportsController controller = new SportsController(mockedContext.Object);
 
-            IQueryable<country> result = controller.GetCountries();
+            IQueryable<sport> result = controller.GetSports();
 
             Assert.IsNotNull(result);
             Assert.AreEqual(0, result.Count());
         }
 
         [TestMethod]
-        public void Get_Country_By_ID_Should_Return_Country()
+        public void Get_sport_By_ID_Should_Return_sport()
         {
-            var data = new List<country>
+            var data = new List<sport>
             {
-                new country() { name = "name1", abbr = "abbr1", id = 1 }
+                new sport() { abbr="abbr", category=1, id=1, name="name" }
             }.AsQueryable();
 
             Mock<OlympicsEntities> mockedContext = TestHelpers.GetMockedContext(data);
 
-            CountriesController controller = new CountriesController(mockedContext.Object);
+            SportsController controller = new SportsController(mockedContext.Object);
             controller.Request = new HttpRequestMessage();
             controller.Configuration = new HttpConfiguration();
 
-            IHttpActionResult response = controller.GetCountry(data.First().id);
+            IHttpActionResult response = controller.GetSport(data.First().id);
 
-            var result = response as OkNegotiatedContentResult<country>;
+            var result = response as OkNegotiatedContentResult<sport>;
             var coutryResult = result.Content;
 
             Assert.IsNotNull(response);
