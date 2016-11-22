@@ -1,0 +1,598 @@
+﻿/* resets */
+html {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure, dialog, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+a img {
+	border: none;
+}
+
+/*body {line-height:1.5;background:white;}
+table {border-collapse:separate;border-spacing:0;}
+caption, th, td {text-align:left;font-weight:normal;float:none !important;}
+table, th, td {vertical-align:middle;}
+blockquote:before, blockquote:after, q:before, q:after {content:'';}
+blockquote, q {quotes:"" "";}*/
+
+html, body, form {
+	min-height: 100%;
+	font: 14px "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+body {
+	background: #e4ebed url(../images/inner_bgr.jpg) no-repeat 50% 238px;
+}
+
+a {
+	color: #005ca3;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a.RadButton {
+	color: #c2cedb;
+	text-decoration: none;
+}
+
+#header {
+	height: 238px;
+	background: #0c356c url(../images/header.jpg) no-repeat 50% 39px;
+}
+
+#header .t-top-logo {
+	margin: 8px 0 0;
+	float: left;
+}
+
+#header .topNav {
+	height: 39px;
+	background: #001a41;
+	text-align: right;
+}
+
+#header .topNav a {
+	color: #00aeff;
+	line-height: 35px;
+	margin-left: 5px;
+}
+
+#header .topNav a:hover {
+	color: #6dc6fe;
+	text-decoration: none;
+}
+
+#header .topNav a:after,
+.aboutPage .links a:after {
+	content: " »";
+	font-weight: 800;
+}
+
+#header .hgroup {
+	position: relative;
+	float: left;
+	margin-top: 77px;
+}
+
+#header .hgroup h2 {
+	position: absolute;
+	top: 60px;
+	left: 85px;
+}
+
+/*Containers*/
+#header .topNav .nav,
+#header .headerCont,
+#content .wrapper,
+#footer .section {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+/*Sprites*/
+#header .rmItem .rmLink,
+.box h3 {
+	background-image: url(../images/sprite.png);
+	background-repeat: repeat-x;
+}
+
+#header .RadMenu {
+	float: right;
+}
+
+#header .rmRootGroup {
+	border: 0 none;
+}
+
+#header .rmItem {
+	margin-left: 5px;
+	padding-bottom: 2px;
+	background: rgba(100, 100, 100, 0.3);
+	border-radius: 5px;
+	border: 0 none;
+}
+
+#header .rmItem .rmLink {
+	display: block;
+	height: 32px;
+	line-height: 32px;
+	border-radius: 0 0 5px 5px;
+	text-shadow: 1px 1px #fff;
+	cursor: pointer;
+	text-decoration: none;
+	color: #005ca3;
+}
+
+#header .rmItem .rmLink:hover,
+#header .rmItem .rmSelected {
+	color: #000;
+	background: #fff;
+	text-shadow: none;
+}
+
+
+/*Content*/
+#content {
+	background: transparent url(../images/olympic_rings.png) no-repeat 50% 100%;
+}
+
+.wrapper {
+	padding: 25px 0 18px;
+}
+
+#content h2 {
+	font-size: 24px;
+	color: #064487;
+	margin-bottom: 10px;
+}
+
+.description {
+	line-height: 22px;
+	padding-bottom: 25px;
+	color: #234166;
+}
+
+.box,
+.aboutPage {
+	padding: 15px 17px;
+	margin: 34px 0 50px;
+	border-radius: 0 5px 5px 5px;
+	background: #fff;
+	background: rgba(255,255,255,0.7);
+	background: rgba(255,255,255,0.7) -moz-linear-gradient(top,rgba(255,255,255,1),rgba(255,255,255,0.1));
+	background: rgba(255,255,255,0.7) -o-linear-gradient(top,rgba(255,255,255,1),rgba(255,255,255,0.5));
+	background: rgba(255,255,255,0.7) -webkit-linear-gradient(top bottom,rgba(255,255,255,1),rgba(255,255,255,0.5));
+	background: rgba(255,255,255,0.7) linear-gradient(top bottom,rgba(255,255,255,1),rgba(255,255,255,0.5));
+	position: relative;
+	color: #234166;
+	box-shadow: 0 0 5px #c4cacc;
+}
+
+.box h3 {
+	height: 34px;
+	line-height: 34px;
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	top: -34px;
+	padding: 0 15px;
+	color: #fff;
+	text-transform: uppercase;
+	border-radius: 5px 5px 0 0;
+}
+
+.blueTitle {
+	background-position: 0 -100px;
+	background-color: #0f4086;
+}
+
+.redTitle {
+	background-position: 0 -200px;
+	background-color: #a5001e;
+}
+
+.greenTitle {
+	background-position: 0 -300px;
+	background-color: #6ba212;
+}
+
+.orangeTitle {
+	background-position: 0 -400px;
+	background-color: #ef8d01;
+}
+
+div.RadAutoCompleteBox .racTokenList {
+	padding: 4px 4px 1px;
+}
+
+div.RadAutoCompleteBox .racToken {
+	margin: 0 3px 3px 0;
+}
+
+span.PivotGridReorderBottom_Windows7 {
+	background-position: -22px -208px;
+}
+
+span.PivotGridReorderTop_Windows7 {
+	background-position: 1px -208px;
+}
+
+.medals-by-sport .configPanel {
+	border-top-left-radius: 5px;
+	margin: 0 0 20px;
+}
+
+.medals-by-sport .configPanel > div {
+	float: left;
+}
+
+.about {
+	text-align: right;
+	font-size: 12px;
+	color: #454a4b;
+}
+
+.results-gauge {
+	margin: -9px 0 23px 17px;
+}
+
+.achievmentsGauge {
+	background: transparent url(../images/gauge.png) no-repeat 0 11px;
+	width: 202px;
+	height: 250px;
+	margin: 0 0 10px 30px;
+	overflow: hidden;
+	float: left;
+	color: #0c153f;
+}
+
+.results-panel {
+	padding: 20px 0;
+	zoom: 1;
+}
+
+.achievmentsGauge span {
+	text-align: center;
+	display: block;
+}
+
+.achievmentsGauge .athleteName {
+	font-weight: 800;
+	display: block;
+	margin: 10px 0 0;
+	line-height: 12px;
+}
+
+div.topAthletes {
+	width: 317px;
+	height: 490px;
+	float: left;
+	margin-right: 15px;
+	padding-right: 0;
+}
+
+.topAthletes h4 {
+	color: #4c607a;
+	text-transform: uppercase;
+	font-size: 11px;
+	margin-bottom: 5px;
+}
+
+.topAthletes .listBoxWrapper {
+	width: 148px;
+	float: left;
+	margin: 0 10px 20px 0;
+}
+
+
+div.topAthletes .RadListBox .rlbText {
+	color: #234166;
+	line-height: 30px;
+}
+
+div.topAthletes .RadListBox .rlbItem {
+	padding: 0 0 0 11px;
+	border: 1px solid #fff;
+}
+
+div.topAthletes .RadListBox .rlbHovered,
+div.topAthletes .RadListBox .rlbSelected {
+	background: #e3edf8;
+	color: #234166;
+}
+
+div.topAthletes .RadListBox .rlbActive {
+	border: 1px dotted #555;
+}
+
+.topAthletes .RadListBox .rlbCheck {
+	margin-left: -7px;
+	margin-right: 4px;
+}
+
+.athletesListContainer {
+	background: #69b8ce;
+	background: rgba(105, 184, 206, 0.4);
+	width: 810px;
+	padding: 20px 13px;
+	margin-bottom: 50px;
+	float: right;
+	border: 1px solid #fff;
+	position: relative;
+}
+
+.athletesListContainer:before {
+	content: "";
+	display: block;
+	width: 40px;
+	height: 26px;
+	background: url(../images/triangle_top.png) no-repeat;
+	position: absolute;
+	left: 41px;
+	top: -26px;
+}
+
+.athletesListContainer h3 {
+	font-size: 26px;
+	color: #fff;
+	margin: 0 15px 20px 24px;
+}
+
+.athletesListContainer .item {
+	float: left;
+	margin: 0 15px 10px 24px;
+}
+
+.athletesListContainer dl {
+	float: left;
+	border: 1px solid #fff;
+	background: rgb(254, 254, 254);
+	background: rgba(254, 254, 254, 0.6);
+	height: 61px;
+	width: 260px;
+	margin: 10px 0 0 -20px;
+	padding: 7px 0 0 26px;
+	font-size: 12px;
+}
+
+* + html .athletesListContainer dl {
+	width: 250px;
+}
+
+.athletesListContainer dl dt {
+	float: left;
+	clear: left;
+	margin-right: 5px;
+}
+
+.athletesListContainer dl dd {
+	float: left;
+}
+
+.medal {
+	background: transparent url(../images/medals.png) no-repeat 0 0;
+	position: relative;
+	float: left;
+	width: 92px;
+	height: 92px;
+}
+
+.medalSilver .medal {
+	background-position: 0 -100px;
+}
+
+.medalBronze .medal {
+	background-position: 0 -200px;
+}
+
+
+
+/* About Page*/
+
+.aboutPage {
+	border-top-left-radius: 5px;
+	overflow: hidden;
+	padding: 50px 40px 20px;
+}
+
+
+.aboutPage .main {
+	float: left;
+	width: 800px;
+	margin-right: 85px;
+}
+
+.aboutPage .aside {
+	float: left;
+	width: 235px;
+}
+
+.aboutPage h3 {
+	color: #064487;
+	font-weight: 800;
+	font-size: 16px;
+	text-transform: uppercase;
+	margin-bottom: 20px;
+}
+
+.aboutPage p {
+	margin-bottom: 15px;
+	line-height: 22px;
+}
+
+.aboutPage a {
+	color: #00aeff;
+}
+
+.aboutPage em {
+	color: #3a5c86;
+	font-style: italic;
+}
+
+.usedControls {
+	width: 620px;
+	overflow: hidden;
+	margin-bottom: 15px;
+}
+
+.usedControls li {
+	width: 280px;
+	height: 30px;
+	padding-left: 30px;
+	float: left;
+	list-style: none;
+	background: transparent url(../images/sprite_radcontrols.png) no-repeat 0 0px;
+}
+
+.usedControls li a {
+	color: #55af46;
+	line-height: 30px;
+}
+
+.usedControls li a:hover {
+	text-decoration: none;
+	color: #106f00;
+}
+
+.usedControls .autoCompleteControl {
+	background-position: 0 -25px;
+}
+
+.usedControls .chartControl {
+	background-position: 0 -50px;
+}
+
+.usedControls .comboBoxControl {
+	background-position: 0 -75px;
+}
+
+.usedControls .gaugeControl {
+	background-position: 0 -100px;
+}
+
+.usedControls .menuControl {
+	background-position: 0 -125px;
+}
+
+.usedControls .pivotControl {
+	background-position: 0 -150px;
+}
+
+.usedControls .listBoxControl {
+	background-position: 0 -175px;
+}
+
+.usedControls .listViewControl {
+	background-position: 0 -200px;
+}
+
+.usedControls .sliderControl {
+	background-position: 0 -225px;
+}
+
+.usedControls .openAccessControl {
+	background-position: 0 -250px;
+}
+
+.usedControls .windowControl {
+	background-position: 0 -275px;
+}
+
+.aboutPage .links {
+	margin-left: 20px;
+	line-height: 30px;
+}
+
+.aboutPage .aside h4 {
+	margin-bottom: 5px;
+}
+
+.aboutPage .aside h4 a {
+	color: #005ca3;
+	font-size: 16px;
+	text-decoration: none;
+	margin: 0;
+}
+
+.aboutPage .aside h4 a:hover {
+	color: #00aeff;
+}
+
+
+.aboutPage .aside a {
+	margin-bottom: 20px;
+	display: block;
+}
+
+div.OlympicGamesTooltips td {
+	vertical-align: middle;
+}
+
+.OlympicGamesTooltips .rtWrapperContent div {
+	color: #234166;
+}
+
+
+/* Footer */
+#footer {
+	background-color: #fff;
+	color: #818692;
+	line-height: 1.4em;
+	font-size: 11px;
+	padding: 10px 0;
+}
+
+#footer .copyright {
+	padding: 10px 0;
+}
+
+#footer .copyright a, #footer .copyright a:hover {
+	color: #005ca3;
+	text-decoration: none;
+}
+
+#footer .telerik,
+#footer .nav {
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 20px;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+* + html #footer .telerik,
+* + html #footer .nav {
+	float: left;
+}
+
+* + html #footer .telerik {
+	margin-top: 15px;
+}
+
+.telerik img {
+	display: block;
+}
+
+#footer .nav a {
+	padding-right: 4px;
+	padding-left: 1px;
+	margin-right: -1px;
+	border-right: 1px solid #aaa;
+}

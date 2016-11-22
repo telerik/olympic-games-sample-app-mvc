@@ -3,39 +3,88 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <meta name="title" content="Kendo PivotGrid and Chart | Olympic Games Sample App" />
+    <meta name="description" content="Take a look at how easy it is to implement Progress UI for ASP.NET MVC Chart and PivotGrid wrapper to display and manage data." />
+    <link rel="shortcut icon" href="~/Content/favicon.ico" />
     <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2016.3.1118/styles/kendo.common.min.css">
+    <link href="https://kendo.cdn.telerik.com/2016.3.1118/styles/kendo.default.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2016.3.1118/styles/kendo.dataviz.default.min.css" rel="stylesheet" type="text/css" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    
+    <script src="http://kendo.cdn.telerik.com/2016.3.1118/js/kendo.all.min.js"></script>
+    <script src="http://kendo.cdn.telerik.com/2016.3.1118/js/kendo.aspnetmvc.min.js"></script>
+	<script src="https://kendo.cdn.telerik.com/2016.3.1118/js/jszip.min.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-6X92" height="0" width="0" style="display: none; visibility: hidden"></iframe>
+    </noscript>
+    <script>
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-6X92');</script>
+    <!-- End Google Tag Manager -->
+    
+
+    <div id="header">
+        <div class="topNav">
+            <div class="nav">
+                <div class="t-top-logo">
+                    <img src="~/Content/images/telerik-top-logo.png" alt="" />
+                </div>
+                <a href="@Url.Action("About", "Home")">About this sample app</a>
+                <a href="https://github.com/telerik/olympic-games-sample-app-mvc/"  target="_blank" onclick="_gaq.push(['_trackPageview', '/ajax-olympic-sample-app/source-download']);">Download source code</a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                </ul>
+        </div>
+        <div class="headerCont">
+            @(Html.Kendo().Menu()
+                .Name("Navigation")
+                .Items(items =>
+                {
+                    items.Add().Text("Medals by Country").Action("Medals_by_Country", "Home");
+                    items.Add().Text("Medals by Sport").Action("Medals_by_Sport", "Home");
+                    items.Add().Text("Top Results by Sport").Action("Top_Results_by_Sport", "Home");
+                    items.Add().Text("Athlete Comparison").Action("Athlete_Comparison", "Home");
+                })
+            )
+            <div class="hgroup">
+                <h1><a href="@Url.Action("Index", "Home")"><img src="~/Content/images/logo_main.png" alt="Olympic Games" /></a></h1>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+    <div id="content">
+        <div class="wrapper">
+            @RenderBody()
+            <p class="about">
+                Sample ASP.NET MVC application built with <a href="http://www.telerik.com/products/aspnet-mvc" onclick="_gaq.push(['_trackPageview', '/ajax-olympic-sample-app/controls']);">Progress &reg; UI for ASP.NET MVC</a>
+            </p>
+        </div>
+    </div>
+    <div id="footer">
+        <div class="section">
+            <div class="nav">
+                <a href="http://www.telerik.com/company/contact-us.aspx">Contact Us</a>
+                <a href="http://feedback.telerik.com/Project/108">Site Feedback</a>
+                <a href="http://www.telerik.com/company/terms.aspx">Terms of Use</a>
+                <a href="http://www.telerik.com/company/privacy-policy.aspx">Privacy Policy</a>
+            </div>
+            <span class="copyright">
+                <p>Copyright  &copy; @DateTime.Now.Year.ToString(), Progress Software Corporation and/or its subsidiaries or affiliates. All Rights Reserved.</p>
+            </span>
+        </div>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
+    <script src="~/Scripts/marketo-scripts.js"></script>
 </body>
 </html>
