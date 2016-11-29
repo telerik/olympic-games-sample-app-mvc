@@ -12,7 +12,7 @@
     <link href="https://kendo.cdn.telerik.com/2016.3.1118/styles/kendo.dataviz.default.min.css" rel="stylesheet" type="text/css" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    
+    <script src="http://kendo.cdn.telerik.com/2016.3.1118/js/jquery.min.js"></script>
     <script src="http://kendo.cdn.telerik.com/2016.3.1118/js/kendo.all.min.js"></script>
     <script src="http://kendo.cdn.telerik.com/2016.3.1118/js/kendo.aspnetmvc.min.js"></script>
 	<script src="https://kendo.cdn.telerik.com/2016.3.1118/js/jszip.min.js"></script>
@@ -47,6 +47,7 @@
         <div class="headerCont">
             @(Html.Kendo().Menu()
                 .Name("Navigation")
+                .HtmlAttributes(new { @class = "navigation-memu" })
                 .Items(items =>
                 {
                     items.Add().Text("Medals by Country").Action("Medals_by_Country", "Home");

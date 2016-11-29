@@ -107,21 +107,14 @@ a.RadButton {
 }
 
 /*Sprites*/
-#header .rmItem .rmLink,
-.box h3 {
-	background-image: url(../images/sprite.png);
-	background-repeat: repeat-x;
-}
-
-#header .RadMenu {
+#header .k-menu.navigation-memu {
 	float: right;
+    border: 0 none;
+    background-color: transparent;
+    background-image:none;
 }
 
-#header .rmRootGroup {
-	border: 0 none;
-}
-
-#header .rmItem {
+#header .k-item {
 	margin-left: 5px;
 	padding-bottom: 2px;
 	background: rgba(100, 100, 100, 0.3);
@@ -129,7 +122,13 @@ a.RadButton {
 	border: 0 none;
 }
 
-#header .rmItem .rmLink {
+#header .k-item .k-link,
+.box h3 {
+	background-image: url(../images/sprite.png);
+	background-repeat: repeat-x;
+}
+
+#header .k-item .k-link {
 	display: block;
 	height: 32px;
 	line-height: 32px;
@@ -138,14 +137,16 @@ a.RadButton {
 	cursor: pointer;
 	text-decoration: none;
 	color: #005ca3;
+    padding: 4px 10px;
 }
 
-#header .rmItem .rmLink:hover,
-#header .rmItem .rmSelected {
+#header .k-item .k-link:hover,
+#header .k-item.k-state-highlight .k-link {
 	color: #000;
 	background: #fff;
 	text-shadow: none;
 }
+
 
 
 /*Content*/
