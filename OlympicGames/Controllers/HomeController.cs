@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OlympicGames.Models;
+using OlympicGames.WebApiControllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,11 +13,14 @@ namespace OlympicGames.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Olympic Games - Medals by Country";
-            return View("Medals_by_Country");
+            return RedirectToActionPermanent("Medals_by_Country");
         }
 
         public ActionResult Medals_by_Country()
         {
+            var webApi = new GamesController();
+            ViewBag.MinMaxYears = webApi.GetMinMaxYears(true);
+
             ViewBag.Title = "Olympic Games - Medals by Country";
             return View();
         }

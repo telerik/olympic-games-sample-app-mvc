@@ -15,6 +15,12 @@ namespace OlympicGames
 
             routes.MapRoute(
                 name: "Default",
+                url: "Home/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "NoHome",
                 url: "{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );

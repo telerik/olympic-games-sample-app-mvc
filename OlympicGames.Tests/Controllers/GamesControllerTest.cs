@@ -23,7 +23,9 @@ namespace OlympicGames.Tests.Controllers
         private Mock<DbSet<game>> mockSet;
         private readonly List<game> data = new List<game>
         {
-            new game() {city="city", country=1, id=1,name="name",year=12 }
+            new game() {city="city", country=1, id=1,name="name",year=1986 },
+            new game() {city="city", country=1, id=2,name="name",year=1998 },
+            new game() {city="city", country=1, id=3,name="name",year=2004 },
         };
 
         [TestInitialize()]
@@ -77,6 +79,22 @@ namespace OlympicGames.Tests.Controllers
             Assert.IsNotNull(response);
             Assert.IsNotNull(coutryResult);
             Assert.AreEqual(data.First(), coutryResult);
+        }
+
+        [TestMethod]
+        public void Get_Max_and_Min_Game_Year_Should_Return_Two_Years()
+        {
+            TestHelpers.SetupDbSet(this.mockSet, this.data);
+
+            GamesController controller = new GamesController(this.mockContext.Object);
+            controller.Request = new HttpRequestMessage();
+            controller.Configuration = new HttpConfiguration();
+
+            var response = controller.GetMinMaxYears(true);
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(1986, response[0]);
+            Assert.AreEqual(2004, response[1]);
         }
 
 

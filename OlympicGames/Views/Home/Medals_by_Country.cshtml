@@ -1,4 +1,118 @@
 ﻿<meta name="title" content="Kendo PivotGrid and Chart | Olympic Games Sample App" />
 <meta name="description" content="Take a look at how easy it is to implement Progress UI for ASP.NET MVC Chart and PivotGrid wrapper to display and manage data." />
 
-<h1>Dummy</h1>
+<h2>Medals by Country</h2>
+
+<p class="description">
+    Wonder how many Olympic medals your country has won throughout the years and how the achievements stack against your neighbors’?<br />
+    Select the countries and years of interest below to get the info in an easy-to-understand line Chart and a PivotGrid allowing you to get in-depth details with just a few clicks.
+</p>
+<div class="box">
+    <h3 class="blueTitle">
+        Countries
+    </h3>
+    
+    @(Html.Kendo().MultiSelect()
+        .Name("SelectedCountries")
+        .Placeholder("Select country ...")
+        .DataSource(datasource => datasource
+            .Read(read => read.Url("/api/countries"))
+        )
+        .DataTextField("name")
+        .DataValueField("id")
+        .ItemTemplateId("SelectedCountriesItemTemplate")
+        .TagTemplateId("SelectedCountriesItemTemplate")
+        .Value(new int[] { 205, 72, 76, 204 })
+    )
+
+    <script id="SelectedCountriesItemTemplate" type="text/x-kendo-template">
+        <span class='countryFlag #= data.name.toLowerCase().replace(' ', '_') #'></span>#= data.name #
+    </script>
+
+    @*<telerik:RadAutoCompleteBox ID="RadAutoCompleteBoxCountries" runat="server" AutoPostBack="true"
+                                    DataSourceID="OpenAccessLinqDataSourceCountries" DataTextField="Name" DataValueField="Id"
+                                    OnEntryAdded="RadAutoCompleteBoxCountries_EntryAdded" OnEntryRemoved="RadAutoCompleteBoxCountries_EntryRemoved" OnClientEntryAdded="onClientEntryAdded"
+                                    Width="100%" DropDownPosition="Automatic">
+        </telerik:RadAutoCompleteBox>*@
+</div>
+<div class="box">
+    <h3 class="redTitle">
+        Olympic Years
+    </h3>
+
+    @(Html.Kendo().RangeSlider()
+        .Name("YearsSlider")
+        .HtmlAttributes(new { style = "width: 100%" })
+        .Min((double) ViewBag.MinMaxYears[0])
+        .Max((double) ViewBag.MinMaxYears[1])
+        .SmallStep(4)
+        .LargeStep(4)
+        .Tooltip(tooltip => tooltip.Format("{0}"))
+    )
+
+    @*<telerik:RadSlider runat="server" ID="RadSliderGames" Width="1166px" Height="45px"
+                           ItemType="Item" TrackPosition="TopLeft" DataSourceID="OpenAccessLinqDataSourceGames"
+                           IsSelectionRangeEnabled="true" SelectionEnd="26" ShowDecreaseHandle="false" ShowIncreaseHandle="false"
+                           AutoPostBack="true" OnValueChanged="RadSliderGames_ValueChanged">
+            <ItemBinding TextField="Year" ValueField="Year" ToolTipField="City" />
+        </telerik:RadSlider>*@
+</div>
+<div class="box">
+    <h3 class="greenTitle">
+        Medals - Overview
+    </h3>
+    @*<telerik:RadHtmlChart ID="RadHtmlChartStats" runat="server" Height="300px">
+            <PlotArea>
+                <XAxis DataLabelsField="Year">
+                </XAxis>
+            </PlotArea>
+        </telerik:RadHtmlChart>*@
+</div>
+<div class="box">
+    <h3 class="orangeTitle">
+        Medals - Details
+    </h3>
+    @*<telerik:RadButton ID="RadButtonShowFilterWindow" runat="server" Text="Show filter window"
+                           AutoPostBack="false" OnClientClicked="Clicked" Value="Show">
+        </telerik:RadButton>
+        <br />
+        <br />
+        <telerik:RadWindow ID="RadWindowSports" runat="server" AutoSize="true" VisibleStatusbar="false"
+                           Behaviors="Close,Move" KeepInScreenBounds="true" Title="Include sports in PivotGrid">
+            <ContentTemplate>
+                <div style="width: 340px; height: 465px; padding: 10px;">
+                    <telerik:RadButton ID="RadButtonUpdate" runat="server" Text="Update PivotGrid" OnClick="RadButtonUpdate_Click">
+                    </telerik:RadButton>
+                    <telerik:RadButton ID="RadButtonClear" runat="server" Text="Reset" OnClick="RadButtonClear_Click"
+                                       Style="margin: 0 0 10px 5px;">
+                    </telerik:RadButton>
+                    <telerik:RadListBox ID="RadListBoxSports" runat="server" DataSourceID="OpenAccessLinqDataSourceSports"
+                                        DataTextField="Name" DataValueField="Id" Width="100%" Height="440px" CheckBoxes="true"
+                                        OnDataBound="RadListBoxSports_DataBound" OnClientItemChecked="onItemChecked">
+                    </telerik:RadListBox>
+                </div>
+            </ContentTemplate>
+        </telerik:RadWindow>
+        <telerik:RadPivotGrid ID="RadPivotGridStats" runat="server" OnNeedDataSource="RadPivotGridStats_NeedDataSource"
+                              EnableZoneContextMenu="true" ErrorValue="0" AllowSorting="true" AllowPaging="true"
+                              AllowFiltering="false" ShowFilterHeaderZone="false" PageSize="20" EmptyValue="0" OnItemCommand="RadPivotGridStats_ItemCommand">
+            <SortExpressions>
+                <telerik:PivotGridSortExpression FieldName="OlympicsGame" SortOrder="Descending" />
+            </SortExpressions>
+            <Fields>
+                <telerik:PivotGridRowField DataField="CountryName" Caption="Country Name">
+                </telerik:PivotGridRowField>
+                <telerik:PivotGridRowField DataField="MedalType" Caption="Medal">
+                </telerik:PivotGridRowField>
+                <telerik:PivotGridAggregateField UniqueName="NumberOfMedals" DataField="MedalType" Aggregate="Count" Caption="Number of medals">
+                </telerik:PivotGridAggregateField>
+                <telerik:PivotGridColumnField DataField="OlympicsGame" Caption="Olympic Year">
+                </telerik:PivotGridColumnField>
+                <telerik:PivotGridColumnField DataField="SportName" IsHidden="true" Caption="Sport Name">
+                </telerik:PivotGridColumnField>
+            </Fields>
+            <ClientSettings EnableFieldsDragDrop="true">
+                <Scrolling AllowVerticalScroll="true" ScrollHeight="350px" />
+            </ClientSettings>
+        </telerik:RadPivotGrid>*@
+</div>

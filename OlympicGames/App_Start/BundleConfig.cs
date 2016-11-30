@@ -22,7 +22,8 @@ namespace OlympicGames
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       //"~/Content/styles/bootstrap.css",
-                      "~/Content/styles/styles.css"));
+                      "~/Content/styles/styles.css", 
+                      "~/Content/styles/flags.css"));
         }
     }
 }
