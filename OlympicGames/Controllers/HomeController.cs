@@ -18,8 +18,6 @@ namespace OlympicGames.Controllers
 
         public ActionResult Medals_by_Country()
         {
-            var webApi = new GamesController();
-            ViewBag.MinMaxYears = webApi.GetMinMaxYears(true);
 
             ViewBag.Title = "Olympic Games - Medals by Country";
             return View();

@@ -79,6 +79,65 @@ namespace OlympicGames.Tests.Controllers
             Assert.AreEqual(data.First(), coutryResult);
         }
 
+        [TestMethod]
+        public void Get_MedalsByCountry_Should_Return_Combined_Data()
+        {
+            TestHelpers.SetupDbSet(this.mockSet, new List<result>
+            {
+                new result() {athlete=1, country=1, @event=1,game=1,id=1, medal=1 },
+                new result() {athlete=2, country=2, @event=1,game=2,id=2, medal=1 },
+                new result() {athlete=3, country=2, @event=1,game=1,id=3, medal=1 },
+                new result() {athlete=4, country=1, @event=1,game=2,id=4, medal=1 }
+            });
+           
+            Mock<DbSet<country>> mockCountriesSet = new Mock<DbSet<country>>();
+
+            var coutriesData = new List<country>
+            {
+                new country() { name = "US", abbr = "abbr1", id = 1 },
+                new country() { name = "BG", abbr = "abbr1", id = 2 }
+            };
+
+            TestHelpers.SetupDbSet(mockCountriesSet, coutriesData);
+            this.mockContext.Setup(m => m.countries).Returns(mockCountriesSet.Object);
+
+            Mock<DbSet<game>> mockGamesSet = new Mock<DbSet<game>>();
+
+            var gamesData = new List<game>
+            {
+                new game() {city="city", country=1, id=1,name="name",year=1 },
+                new game() {city="city2", country=1, id=2,name="name2",year=2 }
+            };
+
+            TestHelpers.SetupDbSet(mockGamesSet, gamesData);
+            this.mockContext.Setup(m => m.games).Returns(mockGamesSet.Object);
+
+            Mock<DbSet<medal>> mockMedalSet = new Mock<DbSet<medal>>();
+
+
+            TestHelpers.SetupDbSet(mockMedalSet, new List<medal>
+            {
+                new medal() { id = 1, name = "medal" }
+            });
+            this.mockContext.Setup(m => m.medals).Returns(mockMedalSet.Object);
+
+            ResultsController controller = new ResultsController(this.mockContext.Object);
+            controller.Request = new HttpRequestMessage();
+            controller.Configuration = new HttpConfiguration();
+
+            IHttpActionResult response = controller.GetMedalsByCountry(new int[] { 1, 2 }, 1, 3);
+
+            var result = response as OkNegotiatedContentResult<IQueryable<MedalsByCountry>>;
+            var objectResult = result.Content;
+
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(objectResult);
+            Assert.AreEqual(objectResult.Count(), 4);
+            Assert.AreEqual(objectResult.First().Country, coutriesData.First().name);
+            Assert.AreEqual(objectResult.First().Medals, 1);
+            Assert.AreEqual(objectResult.First().Year, gamesData.First().year);
+        }
+
 
     }
 }

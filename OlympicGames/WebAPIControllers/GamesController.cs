@@ -46,7 +46,6 @@ namespace OlympicGames.WebApiControllers
         }
 
         [ResponseType(typeof(short[]))]
-        //[Route(Name = "Games")]
         public short[] GetMinMaxYears([FromUri] bool getMinMaxYears)
         {
             short minYear = db.games.Min(x => x.year);

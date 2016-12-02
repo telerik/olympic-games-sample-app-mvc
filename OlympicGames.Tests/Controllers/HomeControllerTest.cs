@@ -2,6 +2,12 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OlympicGames;
 using OlympicGames.Controllers;
+using System;
+using Moq;
+using System.Data.Entity;
+using OlympicGames.Models;
+using System.Collections.Generic;
+using OlympicGames.WebApiControllers;
 
 namespace OlympicGames.Tests.Controllers
 {
@@ -9,29 +15,12 @@ namespace OlympicGames.Tests.Controllers
     public class HomeControllerTest
     {
         [TestMethod]
-        public void Index()
-        {
-            // Arrange
-            HomeController controller = new HomeController();
-
-            // Act
-            ViewResult result = controller.Index() as ViewResult;
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual("Olympic Games - Medals by Country", result.ViewBag.Title);
-        }
-
-        [TestMethod]
         public void Medals_by_Country()
         {
-            // Arrange
             HomeController controller = new HomeController();
 
-            // Act
             ViewResult result = controller.Medals_by_Country() as ViewResult;
 
-            // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual("Olympic Games - Medals by Country", result.ViewBag.Title);
         }

@@ -23,6 +23,7 @@
         .ItemTemplateId("SelectedCountriesItemTemplate")
         .TagTemplateId("SelectedCountriesItemTemplate")
         .Value(new int[] { 205, 72, 76, 204 })
+        .Events(events => events.Change("onChange"))
     )
 
     <script id="SelectedCountriesItemTemplate" type="text/x-kendo-template">
@@ -43,11 +44,12 @@
     @(Html.Kendo().RangeSlider()
         .Name("YearsSlider")
         .HtmlAttributes(new { style = "width: 100%" })
-        .Min((double) ViewBag.MinMaxYears[0])
-        .Max((double) ViewBag.MinMaxYears[1])
+        .Min(1896)
+        .Max(2008)
         .SmallStep(4)
         .LargeStep(4)
         .Tooltip(tooltip => tooltip.Format("{0}"))
+        .Events(ev => ev.Change("onChange"))
     )
 
     @*<telerik:RadSlider runat="server" ID="RadSliderGames" Width="1166px" Height="45px"
@@ -61,6 +63,47 @@
     <h3 class="greenTitle">
         Medals - Overview
     </h3>
+    @(Html.Kendo().Chart<OlympicGames.Models.MedalsByCountry>()
+        .Name("HtmlChartStats")
+        .Series(series => series
+            .Line(model => model.Medals,categoryExpression: model => model.Year)
+            .Name("#= group.value #")
+        )
+        .CategoryAxis(axis => axis
+            .MinorGridLines(grid => grid.Visible(true))
+
+        )
+        .DataSource(dataSource => dataSource
+            .WebApi()
+            .Read(read => read
+                .Type(HttpVerbs.Get)
+                .Data("getData")
+                .Url("/api/results/GetMedalsByCountry")
+            )
+            .Group(group => group.Add(model => model.Country))
+            .Sort(sort => sort.Add(model => model.Year))
+        )
+        .Tooltip(tooltip => tooltip.Visible(true))
+    )
+
+    <script>
+        function onChange() {
+            $("#HtmlChartStats").data("kendoChart").dataSource.read();
+        }
+
+
+        function getData() {
+            var countryIds = $("#SelectedCountries").data("kendoMultiSelect").value();
+            var rangeSlider = $("#YearsSlider").data("kendoRangeSlider");
+            var rangeDates = rangeSlider.value();
+            return {
+                ids: countryIds,
+                startYear:rangeDates[0],
+                endYear: rangeDates[1]
+            }
+        }
+    </script>
+
     @*<telerik:RadHtmlChart ID="RadHtmlChartStats" runat="server" Height="300px">
             <PlotArea>
                 <XAxis DataLabelsField="Year">

@@ -32,7 +32,7 @@ namespace OlympicGames.WebApiControllers
             return db.results;
         }
 
-        // GET: api/Results/5
+        //GET: api/Results/5
         [ResponseType(typeof(result))]
         public IHttpActionResult GetResult(int id)
         {
@@ -52,6 +52,46 @@ namespace OlympicGames.WebApiControllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [ActionName("GetMedalsByCountry")]
+        [ResponseType(typeof(IQueryable<MedalsByCountry>))]
+        public IHttpActionResult GetMedalsByCountry([FromUri] int[] ids, [FromUri] int startYear, [FromUri] int endYear)
+        {
+            var years = db.games
+                            .Where(game => game.year >= startYear && game.year <= endYear)
+                            .ToDictionary(key => key.id, value => value.year);
+
+            var gamesIdArr = years.Select(item => item.Key);
+
+            var coutries = db.countries
+                            .Where(country => ids.Contains(country.id))
+                            .ToDictionary(key => key.id, value => value.name);
+
+            var results = db.results.Where(result => ids.Contains(result.country) && gamesIdArr.Contains(result.game));
+
+            Dictionary<int, MedalsByCountry> data = new Dictionary<int, MedalsByCountry>();
+
+            foreach (var item in results)
+            {
+                var hashCode = (coutries[item.country] + years[item.game]).GetHashCode();
+                if (data.ContainsKey(hashCode))
+                {
+                    var oldMedal = data[hashCode].Medals;
+                    data[hashCode].Medals += Convert.ToInt32(item.medal.HasValue);
+                }
+                else
+                {
+                    data.Add(hashCode, new MedalsByCountry
+                    {
+                        Country = coutries[item.country],
+                        Year = years[item.game],
+                        Medals = Convert.ToInt32(item.medal.HasValue)
+                    });
+                }
+            }
+
+            return Ok(data.Select(x => x.Value).AsQueryable());
         }
     }
 }
