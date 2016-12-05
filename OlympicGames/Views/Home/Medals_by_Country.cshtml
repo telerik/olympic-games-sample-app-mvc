@@ -29,12 +29,6 @@
     <script id="SelectedCountriesItemTemplate" type="text/x-kendo-template">
         <span class='countryFlag #= data.name.toLowerCase().replace(' ', '_') #'></span>#= data.name #
     </script>
-
-    @*<telerik:RadAutoCompleteBox ID="RadAutoCompleteBoxCountries" runat="server" AutoPostBack="true"
-                                    DataSourceID="OpenAccessLinqDataSourceCountries" DataTextField="Name" DataValueField="Id"
-                                    OnEntryAdded="RadAutoCompleteBoxCountries_EntryAdded" OnEntryRemoved="RadAutoCompleteBoxCountries_EntryRemoved" OnClientEntryAdded="onClientEntryAdded"
-                                    Width="100%" DropDownPosition="Automatic">
-        </telerik:RadAutoCompleteBox>*@
 </div>
 <div class="box">
     <h3 class="redTitle">
@@ -51,13 +45,6 @@
         .Tooltip(tooltip => tooltip.Format("{0}"))
         .Events(ev => ev.Change("onChange"))
     )
-
-    @*<telerik:RadSlider runat="server" ID="RadSliderGames" Width="1166px" Height="45px"
-                           ItemType="Item" TrackPosition="TopLeft" DataSourceID="OpenAccessLinqDataSourceGames"
-                           IsSelectionRangeEnabled="true" SelectionEnd="26" ShowDecreaseHandle="false" ShowIncreaseHandle="false"
-                           AutoPostBack="true" OnValueChanged="RadSliderGames_ValueChanged">
-            <ItemBinding TextField="Year" ValueField="Year" ToolTipField="City" />
-        </telerik:RadSlider>*@
 </div>
 <div class="box">
     <h3 class="greenTitle">
@@ -65,13 +52,14 @@
     </h3>
     @(Html.Kendo().Chart<OlympicGames.Models.MedalsByCountry>()
         .Name("HtmlChartStats")
+        .ChartArea(chartArea => chartArea.Background("none"))
+        .HtmlAttributes(new { style="height: 300px" })
         .Series(series => series
             .Line(model => model.Medals,categoryExpression: model => model.Year)
             .Name("#= group.value #")
         )
         .CategoryAxis(axis => axis
             .MinorGridLines(grid => grid.Visible(true))
-
         )
         .DataSource(dataSource => dataSource
             .WebApi()
@@ -84,11 +72,18 @@
             .Sort(sort => sort.Add(model => model.Year))
         )
         .Tooltip(tooltip => tooltip.Visible(true))
+        .Events(events => events.DataBound("onDataBound"))
     )
 
     <script>
+        function onDataBound(e) {
+            var axis = e.sender.options.categoryAxis;
+            axis.categories = axis.categories.sort();
+        }
+
         function onChange() {
             $("#HtmlChartStats").data("kendoChart").dataSource.read();
+            $("#PivotGridStats").data("kendoPivotGrid").dataSource.read();
         }
 
 
@@ -97,24 +92,90 @@
             var rangeSlider = $("#YearsSlider").data("kendoRangeSlider");
             var rangeDates = rangeSlider.value();
             return {
-                ids: countryIds,
+                countryIds: countryIds,
+                sportIds: [],
                 startYear:rangeDates[0],
                 endYear: rangeDates[1]
             }
         }
     </script>
-
-    @*<telerik:RadHtmlChart ID="RadHtmlChartStats" runat="server" Height="300px">
-            <PlotArea>
-                <XAxis DataLabelsField="Year">
-                </XAxis>
-            </PlotArea>
-        </telerik:RadHtmlChart>*@
 </div>
 <div class="box">
     <h3 class="orangeTitle">
         Medals - Details
     </h3>
+
+    @(Html.Kendo().PivotGrid<OlympicGames.Models.PivotGridResultItem>()
+        .Name("PivotGridStats")
+        .Height(500)
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .Transport(transport => transport
+                .Read(read => read
+                    .Type(HttpVerbs.Get)
+                    .Url("/api/results/GetPivotGridResultItems")
+                    .Data("getData")
+                )
+            )
+            .Schema(schema => schema
+                .Cube(cube => cube
+                    .Dimensions(dimensions =>
+                    {
+                        dimensions.Add(model => model.CountryName).Caption("Country Name");
+                        dimensions.Add(model => model.MedalType).Caption("Medal");
+                        dimensions.Add(model => model.OlympicsGame).Caption("Olympic Game");
+                        dimensions.Add(model => model.OlympicsYear).Caption("Olympic Year");
+                        dimensions.Add(model => model.SportName).Caption("Sport Name");
+                    })
+                    .Measures(measures => measures.Add("MedalsCount").Field(model => model.MedalType).AggregateName("count").Caption("Number of medals"))
+                )
+            )
+            .Columns(cols => {
+                cols.Add("OlympicsGame").Expand(true);
+            })
+            .Rows(rows => {
+                rows.Add("CountryName").Expand(true);
+                rows.Add("MedalType").Expand(true);
+            })
+            .Measures(measures => measures.Values("MedalsCount"))
+        )
+        .Reorderable(false)
+    )
+
+
+
+    <script>
+        var paths = [
+              //Expand CY 2005 - first dimension
+              ["CountryName"],
+              //Expand All Products under CY 2015 - second dimension
+              ["CountryName&France", "MedalType"]
+        ];
+    </script>
+
+    @*<telerik:RadPivotGrid ID="RadPivotGridStats" runat="server" OnNeedDataSource="RadPivotGridStats_NeedDataSource"
+                          EnableZoneContextMenu="true" ErrorValue="0" AllowSorting="true" AllowPaging="true"
+                          AllowFiltering="false" ShowFilterHeaderZone="false" PageSize="20" EmptyValue="0" OnItemCommand="RadPivotGridStats_ItemCommand">
+        <SortExpressions>
+            <telerik:PivotGridSortExpression FieldName="OlympicsGame" SortOrder="Descending" />
+        </SortExpressions>
+        <Fields>
+            <telerik:PivotGridRowField DataField="CountryName" Caption="Country Name">
+            </telerik:PivotGridRowField>
+            <telerik:PivotGridRowField DataField="MedalType" Caption="Medal">
+            </telerik:PivotGridRowField>
+            <telerik:PivotGridAggregateField UniqueName="NumberOfMedals" DataField="MedalType" Aggregate="Count" Caption="Number of medals">
+            </telerik:PivotGridAggregateField>
+            <telerik:PivotGridColumnField DataField="OlympicsGame" Caption="Olympic Year">
+            </telerik:PivotGridColumnField>
+            <telerik:PivotGridColumnField DataField="SportName" IsHidden="true" Caption="Sport Name">
+            </telerik:PivotGridColumnField>
+        </Fields>
+        <ClientSettings EnableFieldsDragDrop="true">
+            <Scrolling AllowVerticalScroll="true" ScrollHeight="350px" />
+        </ClientSettings>
+    </telerik:RadPivotGrid>*@
+
     @*<telerik:RadButton ID="RadButtonShowFilterWindow" runat="server" Text="Show filter window"
                            AutoPostBack="false" OnClientClicked="Clicked" Value="Show">
         </telerik:RadButton>
@@ -136,26 +197,5 @@
                 </div>
             </ContentTemplate>
         </telerik:RadWindow>
-        <telerik:RadPivotGrid ID="RadPivotGridStats" runat="server" OnNeedDataSource="RadPivotGridStats_NeedDataSource"
-                              EnableZoneContextMenu="true" ErrorValue="0" AllowSorting="true" AllowPaging="true"
-                              AllowFiltering="false" ShowFilterHeaderZone="false" PageSize="20" EmptyValue="0" OnItemCommand="RadPivotGridStats_ItemCommand">
-            <SortExpressions>
-                <telerik:PivotGridSortExpression FieldName="OlympicsGame" SortOrder="Descending" />
-            </SortExpressions>
-            <Fields>
-                <telerik:PivotGridRowField DataField="CountryName" Caption="Country Name">
-                </telerik:PivotGridRowField>
-                <telerik:PivotGridRowField DataField="MedalType" Caption="Medal">
-                </telerik:PivotGridRowField>
-                <telerik:PivotGridAggregateField UniqueName="NumberOfMedals" DataField="MedalType" Aggregate="Count" Caption="Number of medals">
-                </telerik:PivotGridAggregateField>
-                <telerik:PivotGridColumnField DataField="OlympicsGame" Caption="Olympic Year">
-                </telerik:PivotGridColumnField>
-                <telerik:PivotGridColumnField DataField="SportName" IsHidden="true" Caption="Sport Name">
-                </telerik:PivotGridColumnField>
-            </Fields>
-            <ClientSettings EnableFieldsDragDrop="true">
-                <Scrolling AllowVerticalScroll="true" ScrollHeight="350px" />
-            </ClientSettings>
-        </telerik:RadPivotGrid>*@
+        *@
 </div>
