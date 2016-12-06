@@ -169,6 +169,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Models\MedalsByType.cs" />
     <Compile Include="Models\MedalsBySport.cs" />
+    <Compile Include="Models\AthleteResult.cs" />
     <Compile Include="Models\MedalsByCountry.cs" />
     <Compile Include="Models\MedalType.cs" />
     <Compile Include="Models\PivotGridResultItem.cs" />

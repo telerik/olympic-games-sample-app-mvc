@@ -1,4 +1,166 @@
-﻿<meta name="title" content="Kendo PivotGrid and Chart | Olympic Games Sample App" />
-<meta name="description" content="Take a look at how easy it is to implement Progress UI for ASP.NET MVC Chart and PivotGrid wrapper to display and manage data." />
+﻿@section metatags{
+    <meta name="title" content="ASP.NET Gauge | Olympic Games Sample App" />
+    <meta name="description" content="See how you can use many instances of Progress UI for ASP.NET Gauge wrappers on the same page and still keep it lightning fast and without any complex markup from the server." />
+}
 
-<h1>Dummy</h1>
+
+<h2>Top Results by Sport</h2>
+<p class="description">See the top 10 results of all time for the sport you choose.</p>
+<div class="box">
+    <h3 class="redTitle">Top Results by Sport</h3>
+
+        @(Html.Kendo().ComboBox()
+        .Name("ComboBoxSports")
+        .HtmlAttributes(new { @class = "sport-comboBox" })
+        .Items(items => {
+            items.Add().Text("100m Men Track & Field").Value("559").Selected(true);
+            items.Add().Text("100m Women Track & Field").Value("560");
+            items.Add().Text("1000m Time Trial Men Cycling").Value("114");
+            items.Add().Text("Platform Diving Men").Value("154");
+            items.Add().Text("Platform Diving Women").Value("155");
+            items.Add().Text("100m Backstroke Men Swimming").Value("472");
+            items.Add().Text("100m Backstroke Women Swimming").Value("473");
+            items.Add().Text("Ski Jump").Value("896");
+            items.Add().Text("Free Pistol Shooting").Value("405");
+            items.Add().Text("Rapid-Fire Pistol Shooting").Value("437");
+        })
+        .Events(events => events.Change("onChange"))
+        )
+
+        @(Html.Kendo().ListView<OlympicGames.Models.AthleteResult>()
+            .Name("ResultsPanel")
+            .HtmlAttributes(new { @class = "results-panel" })
+            .TagName("div")
+            .ClientTemplateId("GuageTemplate")
+            .DataSource(dataSource => dataSource
+                .Custom()
+                .Transport(transport => transport
+                    .Read(read => read.Url("/api/results/GetTopResults")
+                        .Type(HttpVerbs.Get)
+                        .Data("getData"))
+                )
+            )
+            .Events(ev => ev.DataBinding("onDataBinding").DataBound("onDataBound"))
+            
+        )
+
+        <script type="text/x-kendo-tmpl" id="GuageTemplate">
+            <div class="achievmentsGauge">
+                @(Html.Kendo().RadialGauge()
+                    .Name("gauge_#=uid#")
+                    .HtmlAttributes(new { @class= "results-gauge"})
+                    .Scale(scale => scale
+                        .Min(0)
+                        .Max(100)
+                        .MajorUnit(1)
+                        .MajorTicks(ticks => ticks.Color("white"))
+                        .MinorTicks(ticks => ticks.Color("white"))
+                        .Labels(labels => labels.Color("white"))
+                    )
+                    .Pointer(pointer => pointer.Color("white"))
+                    .ToClientTemplate()
+                )
+
+                <span class="athleteName">#:Name#</span>
+                <span>#:Result#</span>
+
+                #items.push({uid:uid, result: NumResult});#
+            </div>
+        </script>
+    @*$("\\#gauge_" + uid).data("kendoRadialGauge").value(Result);@
+
+    @*<telerik:RadComboBox ID="RadComboBoxSports" runat="server" AutoPostBack="true" MarkFirstMatch="true"
+                            OnSelectedIndexChanged="RadComboBoxSports_SelectedIndexChanged">
+        <Items>
+            <telerik:RadComboBoxItem Selected="true" Value="559" Text="100m Men Track & Field" />
+            <telerik:RadComboBoxItem Selected="true" Value="560" Text="100m Women Track & Field" />
+            <telerik:RadComboBoxItem Selected="true" Value="114" Text="1000m Time Trial Men Cycling" />
+            <telerik:RadComboBoxItem Selected="true" Value="154" Text="Platform Diving Men" />
+            <telerik:RadComboBoxItem Selected="true" Value="155" Text="Platform Diving Women" />
+            <telerik:RadComboBoxItem Selected="true" Value="472" Text="100m Backstroke Men Swimming" />
+            <telerik:RadComboBoxItem Selected="true" Value="473" Text="100m Backstroke Women Swimming" />
+            <telerik:RadComboBoxItem Selected="true" Value="896" Text="Ski Jump" />
+            <telerik:RadComboBoxItem Selected="true" Value="405" Text="Free Pistol Shooting" />
+            <telerik:RadComboBoxItem Selected="true" Value="437" Text="Rapid-Fire Pistol Shooting" />
+        </Items>
+    </telerik:RadComboBox>*@
+
+</div>
+
+@section scripts{
+    <script>
+        var items = [];
+
+        function onChange() {
+            $("#ResultsPanel").data("kendoListView").dataSource.read();
+        }
+
+        function getData() {
+            var value = getSportId();
+            return {
+                sportId: value
+            };
+        }
+
+        function getSportId() {
+            return $("#ComboBoxSports").data("kendoComboBox").value();
+        }
+
+        function onDataBinding() {
+            items = [];
+        }
+
+        function onDataBound() {
+            var sportId = parseInt(getSportId(),10);
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                var gauge = $("#gauge_" + item.uid).data("kendoRadialGauge");
+                
+                switch (sportId) {
+                    case 559:
+                        setupGauge(gauge, 9, 10, 0.10);
+                        break;
+                    case 560:
+                        setupGauge(gauge, 10, 14, 0.50);
+                        break;
+                    case 114:
+                        setupGauge(gauge, 60, 64, 0.50);
+                        break;
+                    case 154:
+                        setupGauge(gauge, 600, 1000, null);
+                        break;
+                    case 155:
+                        setupGauge(gauge, 520, 600, 10);
+                        break;
+                    case 472:
+                        setupGauge(gauge, 52, 56, 0.50);
+                        break;
+                    case 473:
+                        setupGauge(gauge, 58, 62, 0.50);
+                        break;
+                    case 896:
+                        setupGauge(gauge, 225, 235, 1);
+                        break;
+                    case 405:
+                        setupGauge(gauge, 570, 670, 10);
+                        break;
+                    case 437:
+                        setupGauge(gauge, 600, 1000, null);
+                        break;
+                }
+
+                gauge.redraw();
+                gauge.value(item.result);
+            }
+        }
+
+        function setupGauge(gauge, min, max, majorUnit) {
+            gauge.options.scale.min = min;
+            gauge.options.scale.max = max;
+            gauge.options.scale.majorUnit = majorUnit;
+        }
+        
+    </script>
+}
+
+

@@ -240,21 +240,28 @@ a:hover {
 
 .results-gauge {
 	margin: -9px 0 23px 17px;
+    width:170px; 
+    height:202px;
 }
 
 .achievmentsGauge {
 	background: transparent url(../images/gauge.png) no-repeat 0 11px;
 	width: 202px;
 	height: 250px;
-	margin: 0 0 10px 30px;
+	margin: 0 0 10px 20px;
 	overflow: hidden;
-	float: left;
+	display:inline-block;
 	color: #0c153f;
 }
 
 .results-panel {
-	padding: 20px 0;
 	zoom: 1;
+    background:none;
+    border: none;
+}
+
+.sport-comboBox {
+    width: 300px;
 }
 
 .achievmentsGauge span {
