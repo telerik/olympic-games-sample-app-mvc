@@ -167,12 +167,16 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Models\MedalsByType.cs" />
+    <Compile Include="Models\MedalsBySport.cs" />
     <Compile Include="Models\MedalsByCountry.cs" />
     <Compile Include="Models\MedalType.cs" />
     <Compile Include="Models\PivotGridResultItem.cs" />
     <Compile Include="WebAPIControllers\CountriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="WebAPIControllers\GamesController.cs" />
+    <Compile Include="WebAPIControllers\SportMedalsByCountryController.cs" />
+    <Compile Include="WebAPIControllers\TopSportsMedalsController.cs" />
     <Compile Include="WebAPIControllers\ResultsController.cs" />
     <Compile Include="WebAPIControllers\AthletesController.cs" />
     <Compile Include="WebAPIControllers\MedalsController.cs" />

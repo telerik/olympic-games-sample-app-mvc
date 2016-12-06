@@ -48,6 +48,24 @@ namespace OlympicGames.WebApiControllers
             return Ok(country);
         }
 
+        public IQueryable<country> GetCoutriesWithResult([FromUri] bool flag, int? gameId, string countriesFilter)
+        {
+            var result = db.results.AsQueryable();
+
+            if (gameId != null)
+            {
+                result = result.Where(r => r.game == gameId);
+            }
+            var distCountriesResult = result.Select(s => s.country).Distinct();
+
+            var countries = db.countries.Where(x => distCountriesResult.Contains(x.id));
+            if (!string.IsNullOrEmpty(countriesFilter))
+            {
+                countries = countries.Where(c => c.name.Contains(countriesFilter));
+            }
+            return countries;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
