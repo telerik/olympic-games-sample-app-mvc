@@ -53,7 +53,6 @@
     @(Html.Kendo().Chart<OlympicGames.Models.MedalsByCountry>()
         .Name("HtmlChartStats")
         .ChartArea(chartArea => chartArea.Background("none"))
-        .HtmlAttributes(new { style="height: 300px" })
         .Series(series => series
             .Line(model => model.Medals,categoryExpression: model => model.Year)
             .Name("#= group.value #")
@@ -75,42 +74,70 @@
         .Events(events => events.DataBound("onDataBound"))
     )
 
-    <script>
-        function onDataBound(e) {
-            var axis = e.sender.options.categoryAxis;
-            axis.categories = axis.categories.sort();
-        }
-
-        function onChange() {
-            var pivotGrid = $("#PivotGridStats").data("kendoPivotGrid");
-            var pivotDataSourceOp = pivotGrid.dataSource.options;
-
-            pivotGrid.setDataSource(new kendo.data.PivotDataSource(pivotDataSourceOp));
-            $("#HtmlChartStats").data("kendoChart").dataSource.read();
-        }
-
-
-        function getData() {
-            var countryIds = $("#SelectedCountries").data("kendoMultiSelect").value();
-            var rangeSlider = $("#YearsSlider").data("kendoRangeSlider");
-            var rangeDates = rangeSlider.value();
-            return {
-                countryIds: countryIds,
-                sportIds: [],
-                startYear:rangeDates[0],
-                endYear: rangeDates[1]
-            }
-        }
-    </script>
+    
 </div>
 <div class="box">
     <h3 class="orangeTitle">
         Medals - Details
     </h3>
 
+    @(Html.Kendo().Button()
+        .Name("ButtonShowFilterWindow")
+        .Content("Show filter dialog")
+        .HtmlAttributes(new { value = "show" })
+        .Events(events => events.Click("toggleFilterWindow"))
+    )
+
+    @(Html.Kendo().Window()
+        .Name("WindowSports")
+        .Title("Filter sports in PivotGrid")
+        .Visible(false)
+        .Actions(action => action.Clear().Maximize().Close())
+        .Draggable()
+        .Content(@<text>
+                    @(Html.Kendo().Button()
+                        .Name("ButtonUpdate")
+                        .Content("Update PivotGrid")
+                        .Events(events => events.Click("reloadPivotGrid"))
+                        )
+
+                    @(Html.Kendo().Button()
+                        .Name("ButtonClear")
+                        .Content("Reset")
+                        .Events(events => events.Click("resetSports"))
+                    )
+                    <br/><br />
+                    @(Html.Kendo().ListView<OlympicGames.Models.sport>()
+                        .Name("ListViewSports")
+                        .TagName("div")
+                        .DataSource(dataSource => dataSource
+                            .Custom()
+                            .Transport(transport => transport
+                                .Read(read => read.Url("/api/sports").Type(HttpVerbs.Get))
+                            )
+                        )
+                        .ClientTemplateId("ListViewItemTemplate")
+                    )
+                </text>)
+             .Events(events => events.Open("onWindowOpen").Close("onWindowClose"))
+    )
+
+    <script type="text/x-kendo-tmpl" id="ListViewItemTemplate">
+        <div>
+            @(Html.Kendo().CheckBox()
+                .Name("sportId_#:id#")
+                .Label("#:name#")
+                .HtmlAttributes(new { value = "#:id#", @class = "sportId" })
+                .ToClientTemplate()
+            )
+        </div>
+    </script>
+
+    <br />
+    <br />
     @(Html.Kendo().PivotGrid<OlympicGames.Models.PivotGridResultItem>()
         .Name("PivotGridStats")
-        .Height(500)
+        .Height(400)
         .DataSource(dataSource => dataSource
             .Ajax()
             .Transport(transport => transport
@@ -144,61 +171,75 @@
         )
         .Reorderable(false)
     )
-
-
-
-    <script>
-        var paths = [
-              //Expand CY 2005 - first dimension
-              ["CountryName"],
-              //Expand All Products under CY 2015 - second dimension
-              ["CountryName&France", "MedalType"]
-        ];
-    </script>
-
-    @*<telerik:RadPivotGrid ID="RadPivotGridStats" runat="server" OnNeedDataSource="RadPivotGridStats_NeedDataSource"
-                          EnableZoneContextMenu="true" ErrorValue="0" AllowSorting="true" AllowPaging="true"
-                          AllowFiltering="false" ShowFilterHeaderZone="false" PageSize="20" EmptyValue="0" OnItemCommand="RadPivotGridStats_ItemCommand">
-        <SortExpressions>
-            <telerik:PivotGridSortExpression FieldName="OlympicsGame" SortOrder="Descending" />
-        </SortExpressions>
-        <Fields>
-            <telerik:PivotGridRowField DataField="CountryName" Caption="Country Name">
-            </telerik:PivotGridRowField>
-            <telerik:PivotGridRowField DataField="MedalType" Caption="Medal">
-            </telerik:PivotGridRowField>
-            <telerik:PivotGridAggregateField UniqueName="NumberOfMedals" DataField="MedalType" Aggregate="Count" Caption="Number of medals">
-            </telerik:PivotGridAggregateField>
-            <telerik:PivotGridColumnField DataField="OlympicsGame" Caption="Olympic Year">
-            </telerik:PivotGridColumnField>
-            <telerik:PivotGridColumnField DataField="SportName" IsHidden="true" Caption="Sport Name">
-            </telerik:PivotGridColumnField>
-        </Fields>
-        <ClientSettings EnableFieldsDragDrop="true">
-            <Scrolling AllowVerticalScroll="true" ScrollHeight="350px" />
-        </ClientSettings>
-    </telerik:RadPivotGrid>*@
-
-    @*<telerik:RadButton ID="RadButtonShowFilterWindow" runat="server" Text="Show filter window"
-                           AutoPostBack="false" OnClientClicked="Clicked" Value="Show">
-        </telerik:RadButton>
-        <br />
-        <br />
-        <telerik:RadWindow ID="RadWindowSports" runat="server" AutoSize="true" VisibleStatusbar="false"
-                           Behaviors="Close,Move" KeepInScreenBounds="true" Title="Include sports in PivotGrid">
-            <ContentTemplate>
-                <div style="width: 340px; height: 465px; padding: 10px;">
-                    <telerik:RadButton ID="RadButtonUpdate" runat="server" Text="Update PivotGrid" OnClick="RadButtonUpdate_Click">
-                    </telerik:RadButton>
-                    <telerik:RadButton ID="RadButtonClear" runat="server" Text="Reset" OnClick="RadButtonClear_Click"
-                                       Style="margin: 0 0 10px 5px;">
-                    </telerik:RadButton>
-                    <telerik:RadListBox ID="RadListBoxSports" runat="server" DataSourceID="OpenAccessLinqDataSourceSports"
-                                        DataTextField="Name" DataValueField="Id" Width="100%" Height="440px" CheckBoxes="true"
-                                        OnDataBound="RadListBoxSports_DataBound" OnClientItemChecked="onItemChecked">
-                    </telerik:RadListBox>
-                </div>
-            </ContentTemplate>
-        </telerik:RadWindow>
-        *@
 </div>
+
+
+@section scripts{
+<script>
+    function onDataBound(e) {
+        var axis = e.sender.options.categoryAxis;
+        axis.categories = axis.categories.sort();
+    }
+
+    function onChange() {
+        $("#HtmlChartStats").data("kendoChart").dataSource.read();
+        reloadPivotGrid();
+    }
+
+    function reloadPivotGrid() {
+        var pivotGrid = $("#PivotGridStats").data("kendoPivotGrid");
+        var pivotDataSourceOp = pivotGrid.dataSource.options;
+
+        pivotGrid.setDataSource(new kendo.data.PivotDataSource(pivotDataSourceOp));
+    }
+
+    function resetSports() {
+        $("#ListViewSports input:checkbox:checked")
+            .each(function (i, elm) {
+                $(elm).attr("checked", false);
+            });
+
+        reloadPivotGrid();
+    }
+
+    function onWindowOpen() {
+        $("#ButtonShowFilterWindow")
+            .val("hide")
+            .text("Hide filter dialog")
+    }
+
+    function onWindowClose() {
+        $("#ButtonShowFilterWindow")
+            .val("show")
+            .text("Show filter dialog")
+    }
+
+    function toggleFilterWindow(ev) {
+        var toShow = ev.sender.element.val() == "show";
+        var windowSports = $("#WindowSports").data("kendoWindow");
+
+        if (toShow) {
+            windowSports.open();
+        } else {
+            windowSports.close();
+        }
+    }
+
+    function getData() {
+        var countryIds = $("#SelectedCountries").data("kendoMultiSelect").value();
+        var rangeSlider = $("#YearsSlider").data("kendoRangeSlider");
+        var rangeDates = rangeSlider.value();
+        var sportIds = $("#ListViewSports input:checkbox:checked")
+            .map(function (i, elm) {
+                return $(this).val();
+            }).get();
+            
+        return {
+            countryIds: countryIds,
+            sportIds: sportIds,
+            startYear:rangeDates[0],
+            endYear: rangeDates[1]
+        }
+    }
+</script>
+}

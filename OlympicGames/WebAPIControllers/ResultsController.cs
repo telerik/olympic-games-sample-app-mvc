@@ -126,7 +126,7 @@ namespace OlympicGames.WebApiControllers
 
             var results = db.results.Where(item => item.medal.HasValue &&
                                                    countryIds.Contains(item.country) &&
-                                                   countryIds.Contains(item.country) &&
+                                                   athletesBySportArr.Contains(item.athlete) &&
                                                    db.games.FirstOrDefault(x => x.id == item.game).year >= startYear &&
                                                    db.games.FirstOrDefault(x => x.id == item.game).year <= endYear)
                                                    .OrderBy(x => x.medal);
