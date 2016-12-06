@@ -82,8 +82,11 @@
         }
 
         function onChange() {
+            var pivotGrid = $("#PivotGridStats").data("kendoPivotGrid");
+            var pivotDataSourceOp = pivotGrid.dataSource.options;
+
+            pivotGrid.setDataSource(new kendo.data.PivotDataSource(pivotDataSourceOp));
             $("#HtmlChartStats").data("kendoChart").dataSource.read();
-            $("#PivotGridStats").data("kendoPivotGrid").dataSource.read();
         }
 
 
