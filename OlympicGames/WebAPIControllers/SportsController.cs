@@ -32,6 +32,13 @@ namespace OlympicGames.WebApiControllers
             return db.sports;
         }
 
+        // GET: api/Sports
+        [Route("api/Sports/NoCat")]
+        public IQueryable<sport> GetNoCategorySports()
+        {
+            return db.sports.Where(x => !x.category.HasValue);
+        }
+
         // GET: api/Sports/5
         [ResponseType(typeof(sport))]
         public IHttpActionResult GetSport(int id)

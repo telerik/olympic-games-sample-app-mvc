@@ -149,7 +149,7 @@ a:hover {
 	background: transparent url(../images/olympic_rings.png) no-repeat 50% 100%;
 }
 
-#ListViewSports {
+.by-country.listview-sports {
     height: 400px;
     overflow-y:auto;
 }
@@ -291,10 +291,10 @@ div.topAthletes {
 	margin-bottom: 5px;
 }
 
-.topAthletes .listBoxWrapper {
+.listBoxWrapper {
 	width: 148px;
-	float: left;
-	margin: 0 10px 20px 0;
+    display:inline-block;
+	/*margin: 0 10px 20px 0;*/
 }
 
 
@@ -398,6 +398,41 @@ div.topAthletes .RadListBox .rlbActive {
 	background-position: 0 -200px;
 }
 
+/* Athlete Comparison */
+.comparison.listview-box {
+    height: 470px;
+    overflow:hidden;
+    border: 1px solid #bbdceb;
+}
+
+    .comparison.listview-box .k-listview {
+        height:100%;
+        width:120%;
+        overflow: auto;
+        list-style-type:none;
+        border:none;
+    }
+
+        .comparison.listview-box .k-listview li {
+            padding-left:10px;
+            cursor:pointer;
+        }
+
+.box.inline {
+    display:inline-block;
+}
+
+.box.inline.top {
+    width:69%;
+    vertical-align:top;
+}
+
+.comparison-chart {
+    height: 475px;
+}
+
+
+/**/
 
 
 /* About Page*/

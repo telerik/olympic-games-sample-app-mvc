@@ -45,6 +45,26 @@ namespace OlympicGames.WebApiControllers
             return Ok(medal);
         }
 
+        [ResponseType(typeof(List<AthleteMedals>))]
+        [Route("api/Medals/GetTopSportsAthletes")]
+        public IHttpActionResult GetTopSportsAthletes([FromUri]int sportId, [FromUri]int[] athleteIds)
+        {
+            var athletesWithSportId = db.athletes.ToList().Join(db.results, a => a.id, r => r.athlete, (a, r) => new { AthleteID = a.id, AthleteName = a.firstName + ' ' + a.lastName, SportID = r.@event });
+            var athletesWithSportCategoryId = athletesWithSportId
+                .Join(db.sports, a => a.SportID, s => s.id, (a, s) => new { AthleteID = a.AthleteID, AthleteName = a.AthleteName, SportCategoryId = s.category })
+                .Where(a => a.SportCategoryId == sportId);
+            var athletes = athletesWithSportCategoryId.GroupBy(a => new { a.AthleteID, a.AthleteName },
+             (key, group) => new AthleteMedals
+             {
+                 AthleteId = key.AthleteID,
+                 Name = key.AthleteName,
+                 MedalsCount = group.Count()
+             }).OrderByDescending(a => a.MedalsCount).Take(10)
+             .Where(x => athleteIds.Length == 0 || athleteIds.Contains(x.AthleteId)).ToList();
+
+            return Ok(athletes);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -1,4 +1,136 @@
-﻿<meta name="title" content="Kendo PivotGrid and Chart | Olympic Games Sample App" />
-<meta name="description" content="Take a look at how easy it is to implement Progress UI for ASP.NET MVC Chart and PivotGrid wrapper to display and manage data." />
+﻿@section metatags{
+<meta name="title" content="Kendo Bar Chart and ListView | Olympic Games Sample App" />
+<meta name="description" content="Take a look at how easy it is to implement Progress UI for ASP.NET MVC Bar Chart and ListView wrappers to display information in an easy-to-understand manner." />
+}
 
-<h1>Dummy</h1>
+<h2>Athlete Comparison</h2>
+<p class="description">Compare the number of medals the top athletes in certain disciplines have won. Click on the bars in the chart to see the details of each achievement.</p>
+<div class="box inline">
+    <h3 class="blueTitle">Top Athletes by Sport</h3>
+    <div class="listBoxWrapper">
+        <h4>Disciplines</h4>
+        <div class="comparison listview-box">
+            @(Html.Kendo().ListView<OlympicGames.Models.sport>()
+                .Name("ListViewSports")
+                .HtmlAttributes(new { @class = "listview-sports" })
+                .TagName("ul")
+                .DataSource(dataSource => dataSource
+                    .Custom()
+                    .Transport(transport => transport
+                        .Read(read => read.Url("/api/sports/nocat")
+                            .Type(HttpVerbs.Get)
+                        )
+                    )
+                )
+                .ClientTemplateId("ListViewItemTemplate")
+                .Selectable(selectable => selectable.Mode(ListViewSelectionMode.Single))
+                .Events(events => events.DataBound("onSportsDataBound"))
+            )
+        </div>
+
+        <script type="text/x-kendo-tmpl" id="ListViewItemTemplate">
+            <li data-val="#:id#">#:name#</li>
+        </script>
+    </div>
+    <div class="listBoxWrapper">
+        <h4>Top Athletes</h4>
+        <div class="comparison listview-box">
+            @(Html.Kendo().ListView<OlympicGames.Models.AthleteMedals>()
+                .Name("ListViewAthletes")
+                .HtmlAttributes(new { @class = "listview-athletes" })
+                .TagName("ul")
+                .AutoBind(false)
+                .DataSource(dataSource => dataSource
+                    .Custom()
+                    .Transport(transport => transport
+                        .Read(read => read.Url("/api/Medals/GetTopSportsAthletes")
+                            .Type(HttpVerbs.Get)
+                            .Data("getData")
+                        )
+                    )
+                )
+                .ClientTemplateId("ListViewAthleteTemplate")
+                .Selectable(selectable => selectable.Mode(ListViewSelectionMode.Multiple))
+                .Events(events => events.Change("onAthleteSelect").DataBound("onAthletesDataBound"))
+            )
+        </div>
+        <script type="text/x-kendo-tmpl" id="ListViewAthleteTemplate">
+            <li data-val="#:AthleteId#">#:Name#</li>
+        </script>
+    </div>
+</div>
+
+<div class="box inline top">
+    <h3 class="orangeTitle">Medals by Athlete</h3>
+    <h4>Top Athletes Chart</h4>
+    @(Html.Kendo().Chart<OlympicGames.Models.AthleteMedals>()
+        .Name("ChartAthletes")
+        .ChartArea(chartArea => chartArea.Background("none"))
+        .HtmlAttributes(new { @class = "comparison-chart" })
+        .Series(series => series.Column(m => m.MedalsCount)
+            .CategoryField("Name")
+            .Labels(labels => labels.Visible(false))
+            .Tooltip(t => t.Template("#=dataItem.Name# #=dataItem.MedalsCount#").Background("#D0E7ED"))
+        )
+        .Legend(legend => legend.Visible(false))
+        .CategoryAxis(axis => axis.Labels(labels => labels.Rotation(90)))
+        .AutoBind(false)
+        .DataSource(dataSource => dataSource
+            .Custom()
+            .Transport(transport => transport
+                .Read(read => read.Url("/api/Medals/GetTopSportsAthletes")
+                    .Type(HttpVerbs.Get)
+                    .Data("getData")
+                )
+            )
+        )
+    )
+</div>
+
+@section scripts{
+<script>
+    function onSportsDataBound(ev) {
+        var sportsList = ev.sender;
+        sportsList.select(sportsList.element.children().first());
+        sportsList.bind("change", onChange);
+        updateAthletes();
+    }
+
+    function onAthletesDataBound(ev) {
+        var athletesList = ev.sender;
+        athletesList.select(athletesList.element.children());
+    }
+
+    function onChange(ev) {
+        updateAthletes();
+    }
+
+    function updateAthletes() {
+        var listView = $("#ListViewAthletes").data("kendoListView");
+        listView.clearSelection();
+        listView.dataSource.read();
+    }
+
+    function updateChart() {
+        $("#ChartAthletes").data("kendoChart").dataSource.read();
+    }
+
+    function onAthleteSelect(ev) {
+        updateChart();
+    }
+
+    function getData(ev) {
+        var sportId = $("#ListViewSports").data("kendoListView").select().data("val");
+        var athleteIds = $("#ListViewAthletes").data("kendoListView")
+                            .select()
+                            .map(function (i, elm) {
+                                return $(this).data("val");
+                            });
+        console.log(athleteIds.toArray());
+        return {
+            sportId: (sportId || 1),
+            athleteIds: athleteIds.toArray()
+        };
+    }
+</script>    
+}

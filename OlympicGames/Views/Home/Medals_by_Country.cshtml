@@ -111,6 +111,7 @@
                     <br/><br />
                     @(Html.Kendo().ListView<OlympicGames.Models.sport>()
                         .Name("ListViewSports")
+                        .HtmlAttributes(new { @class = "by-country listview-sports"})
                         .TagName("div")
                         .DataSource(dataSource => dataSource
                             .Custom()

@@ -173,6 +173,7 @@
     <Compile Include="Models\MedalsByCountry.cs" />
     <Compile Include="Models\MedalType.cs" />
     <Compile Include="Models\PivotGridResultItem.cs" />
+    <Compile Include="Models\AthleteMedals.cs" />
     <Compile Include="WebAPIControllers\CountriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="WebAPIControllers\GamesController.cs" />
