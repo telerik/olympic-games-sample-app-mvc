@@ -241,16 +241,14 @@
     <Content Include="Content\images\main_bgr.jpg" />
     <Content Include="Content\images\medals.png" />
     <Content Include="Content\images\olympic_rings.png" />
+    <Content Include="Content\images\product-sprite-sheet.png" />
     <Content Include="Content\images\sprite.png" />
     <Content Include="Content\images\sprite_flags.png" />
-    <Content Include="Content\images\sprite_radcontrols.png" />
     <Content Include="Content\images\telerik-top-logo.png" />
     <Content Include="Content\images\telerik.png" />
     <Content Include="Content\images\triangle_top.png" />
     <Content Include="Content\styles\flags.css" />
     <Content Include="Content\styles\styles.css" />
-    <Content Include="Content\_OLD\bootstrap.css" />
-    <Content Include="Content\_OLD\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -307,7 +305,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
-    <Content Include="Content\_OLD\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />

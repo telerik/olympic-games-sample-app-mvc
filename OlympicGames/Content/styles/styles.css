@@ -477,74 +477,73 @@ div.topAthletes .RadListBox .rlbActive {
 	font-style: italic;
 }
 
-.usedControls {
+.usedProducts {
 	width: 620px;
 	overflow: hidden;
 	margin-bottom: 15px;
 }
 
-.usedControls li {
+.usedProducts li {
 	width: 280px;
-	height: 30px;
-	padding-left: 30px;
 	float: left;
-	list-style: none;
-	background: transparent url(../images/sprite_radcontrols.png) no-repeat 0 0px;
+    line-height: 30px;
+	list-style-type: none;
 }
 
-.usedControls li a {
+.usedProducts li a {
 	color: #55af46;
-	line-height: 30px;
 }
 
-.usedControls li a:hover {
+.usedProducts li a:hover {
 	text-decoration: none;
 	color: #106f00;
 }
 
-.usedControls .autoCompleteControl {
-	background-position: 0 -25px;
+    .usedProducts span.sprite {
+        display:inline-block;
+        vertical-align:text-bottom;       
+        margin-right:10px;
+        width: 16px;
+        height: 16px;
+        background: transparent url(../images/product-sprite-sheet.png) no-repeat;
+    }
+
+.usedProducts .sprite.autocomplete {
+    background-position: -5px -5px;
 }
 
-.usedControls .chartControl {
-	background-position: 0 -50px;
+.usedProducts .sprite.button {
+    background-position: -31px -5px;
 }
 
-.usedControls .comboBoxControl {
-	background-position: 0 -75px;
+.usedProducts .sprite.chart {
+    background-position: -57px -5px;
 }
 
-.usedControls .gaugeControl {
-	background-position: 0 -100px;
+.usedProducts .sprite.combobox {
+    background-position: -5px -31px;
 }
 
-.usedControls .menuControl {
-	background-position: 0 -125px;
+.usedProducts .sprite.listview {
+    background-position: -31px -31px;
 }
 
-.usedControls .pivotControl {
-	background-position: 0 -150px;
+.usedProducts .sprite.multiselect {
+    background-position: -57px -31px;
 }
 
-.usedControls .listBoxControl {
-	background-position: 0 -175px;
+.usedProducts .sprite.pivotgrid {
+    background-position: -5px -57px;
 }
 
-.usedControls .listViewControl {
-	background-position: 0 -200px;
+.usedProducts .sprite.slider {
+    background-position: -31px -57px;
 }
 
-.usedControls .sliderControl {
-	background-position: 0 -225px;
+.usedProducts .sprite.window {
+    background-position: -57px -57px;
 }
 
-.usedControls .openAccessControl {
-	background-position: 0 -250px;
-}
-
-.usedControls .windowControl {
-	background-position: 0 -275px;
-}
 
 .aboutPage .links {
 	margin-left: 20px;
