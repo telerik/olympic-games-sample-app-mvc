@@ -92,13 +92,13 @@ namespace OlympicGames.Tests.Controllers
            
             Mock<DbSet<country>> mockCountriesSet = new Mock<DbSet<country>>();
 
-            var coutriesData = new List<country>
+            var countriesData = new List<country>
             {
                 new country() { name = "US", abbr = "abbr1", id = 1 },
                 new country() { name = "BG", abbr = "abbr1", id = 2 }
             };
 
-            TestHelpers.SetupDbSet(mockCountriesSet, coutriesData);
+            TestHelpers.SetupDbSet(mockCountriesSet, countriesData);
             this.mockContext.Setup(m => m.countries).Returns(mockCountriesSet.Object);
 
             Mock<DbSet<game>> mockGamesSet = new Mock<DbSet<game>>();
@@ -133,7 +133,7 @@ namespace OlympicGames.Tests.Controllers
             Assert.IsNotNull(response);
             Assert.IsNotNull(objectResult);
             Assert.AreEqual(objectResult.Count(), 4);
-            Assert.AreEqual(objectResult.First().Country, coutriesData.First().name);
+            Assert.AreEqual(objectResult.First().Country, countriesData.First().name);
             Assert.AreEqual(objectResult.First().Medals, 1);
             Assert.AreEqual(objectResult.First().Year, gamesData.First().year);
         }

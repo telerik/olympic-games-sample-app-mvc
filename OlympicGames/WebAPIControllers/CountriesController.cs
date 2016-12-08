@@ -48,11 +48,11 @@ namespace OlympicGames.WebApiControllers
             return Ok(country);
         }
 
-        public IQueryable<country> GetCoutriesWithResult([FromUri] bool flag, int? gameId, string countriesFilter)
+        public IQueryable<country> GetCountriesWithResult([FromUri] bool flag, int? gameId, string countriesFilter)
         {
             var result = db.results.AsQueryable();
 
-            if (gameId != null)
+            if (gameId != null && gameId != 0)
             {
                 result = result.Where(r => r.game == gameId);
             }

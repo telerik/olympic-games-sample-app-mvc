@@ -66,7 +66,7 @@ namespace OlympicGames.WebApiControllers
 
             var gamesIdArr = years.Select(item => item.Key);
 
-            var coutries = db.countries
+            var countries = db.countries
                             .Where(country => countryIds.Contains(country.id))
                             .ToDictionary(key => key.id, value => value.name);
 
@@ -76,7 +76,7 @@ namespace OlympicGames.WebApiControllers
 
             foreach (var item in results)
             {
-                var hashCode = (coutries[item.country] + years[item.game]).GetHashCode();
+                var hashCode = (countries[item.country] + years[item.game]).GetHashCode();
                 if (data.ContainsKey(hashCode))
                 {
                     var oldMedal = data[hashCode].Medals;
@@ -86,7 +86,7 @@ namespace OlympicGames.WebApiControllers
                 {
                     data.Add(hashCode, new MedalsByCountry
                     {
-                        Country = coutries[item.country],
+                        Country = countries[item.country],
                         Year = years[item.game],
                         Medals = Convert.ToInt32(item.medal.HasValue)
                     });

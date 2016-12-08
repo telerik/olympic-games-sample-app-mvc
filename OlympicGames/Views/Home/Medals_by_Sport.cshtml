@@ -1,6 +1,6 @@
 ﻿@section metatags{
-<meta name="title" content="Kendo Bar and Pie Charts | Olympic Games Sample App" />
-<meta name="description" content="See the power of the client-side rendering Progress UI for ASP.NET MVC Chart offers. You also get client-side events and improved user interactions." />
+    <meta name="title" content="Kendo Bar and Pie Charts | Olympic Games Sample App" />
+    <meta name="description" content="See the power of the client-side rendering Progress UI for ASP.NET MVC Chart offers. You also get client-side events and improved user interactions." />
 }
 <h2>Medals by Sport</h2>
 
@@ -11,33 +11,34 @@
 <div class="box configPanel">
     @(Html.Kendo().ComboBox()
         .Name("ComboBoxGames")
-        .Placeholder("All olympics")
         .DataTextField("name")
         .DataValueField("id")
         .HtmlAttributes(new { style = "width:200px;" })
         .Filter("contains")
-        //.AutoBind(false)
-        //.MinLength(3)
+        .Events(events => events
+            .DataBound("comboGamesDataBound"))
         .DataSource(source => source
             .Read(read => read.Url("/api/games"))
             .Custom().Sort(s => s.Add("name").Descending())
-        //.ServerFiltering(true);
         )
     )
 
     @(Html.Kendo().ComboBox()
         .Name("ComboBoxCountries")
-        .Placeholder("All olympics")
         .DataTextField("name")
         .DataValueField("id")
         .HtmlAttributes(new { style = "width:200px;" })
         .Filter("contains")
+        .Events(events => events
+            .DataBound("comboCountriesDataBound"))
         .TemplateId("CountriesItemTemplate")
         .DataSource(source => source
-            .Read(read => read.Url("/api/countries?flag=true")
-                .Data("filterCountries"))
+            .Read(read => read
+                .Url("/api/countries?flag=true")
+                .Data("filterCountries")
+             )
             .Custom().Sort(s => s.Add("name").Ascending())
-        .ServerFiltering(true)
+            .ServerFiltering(true)
         )
         .CascadeFrom("ComboBoxGames")
     )
@@ -86,9 +87,13 @@
         {
             series.Bar(model => model.Medals);
         })
+        .ValueAxis(axis => axis
+            .Numeric()
+            .MinorGridLines(lines => lines.Visible(true))
+         )
         .CategoryAxis(axis => axis
             .Categories(c => c.Sport)
-            .MajorGridLines(lines => lines.Visible(false))
+            .MinorGridLines(lines => lines.Visible(true))
         )
         .DataSource(dataSource => dataSource
             .WebApi()
@@ -110,6 +115,7 @@
         .AutoBind(false)
         .Series(series => series
             .Pie(model => model.Medals, model => model.Type, model => model.Color)
+            .Labels(labels => labels.Visible(true))
         )
         .DataSource(dataSource => dataSource
             .WebApi()
@@ -119,26 +125,51 @@
                 .Url("/api/SportMedalsByCountry/GetSportMedalsByCountry")
             )
         )
-        .Tooltip(tooltip => tooltip.Visible(true))
+        .Tooltip(tooltip => tooltip.Visible(false))
+        .Legend(legend => legend.Position(ChartLegendPosition.Bottom))
     )
 </div>
 <br style="clear: both;" />
-
 
 <script id="CountriesItemTemplate" type="text/x-kendo-template">
     <span class='countryFlag #= data.name.toLowerCase().replace(' ', ' _') #'></span>#= data.name #
 </script>
 
 <script>
+    function comboGamesDataBound(e) {
+        if (!this._adding) {
+            this._adding = true;
+
+            e.sender.dataSource.add({
+                name: "All olympics",
+                id: "0"
+            });
+            e.sender.select(0);
+
+            this._adding = false;
+        }
+    }
+
+    function comboCountriesDataBound(e) {
+        console.log(1);
+        //e.sender.select(function (dataItem) {
+        //    return dataItem.name === "Bulgaria";
+        //});
+    }
+
     function changeChartsDs() {
         $("#MedalsBySportsChart").data("kendoChart").dataSource.read();
     }
+
     var sportName;
     function medalsBySportRequestEnd(e) {
         if (e.response[0] && e.response[0].Sport) {
             sportName = e.response[0].Sport;
+            var medalsTypesChart = $("#MedalTypesChart").data("kendoChart");
+            medalsTypesChart.dataSource.read();
+            medalsTypesChart.setOptions({ title: { text: sportName + " medals" } });
         }
-        $("#MedalTypesChart").data("kendoChart").dataSource.read();
+
     }
 
     function filterCountries() {
