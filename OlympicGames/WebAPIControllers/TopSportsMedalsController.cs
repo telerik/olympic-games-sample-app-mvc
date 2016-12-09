@@ -46,7 +46,6 @@ namespace OlympicGames.WebApiControllers
 
             HashSet<int> uniqueMedals = new HashSet<int>();
 
-            //Dictionary<string, int> topSportsByMedal = new Dictionary<string, int>();
             Dictionary<string, MedalsBySport> topSportsByMedal = new Dictionary<string, MedalsBySport>();
 
             foreach (var result in results)
@@ -66,17 +65,14 @@ namespace OlympicGames.WebApiControllers
 
                 if (!topSportsByMedal.ContainsKey(sportCategoryName))
                 {
-                    //topSportsByMedal.Add(sportCategoryName, 0);
                     topSportsByMedal.Add(sportCategoryName, new MedalsBySport
                     {
                                 Sport= sportCategoryName,
                                 Medals = 0
                     });
                 }
-                //topSportsByMedal[sportCategoryName]++;
                 topSportsByMedal[sportCategoryName].Medals++;
             }
-            //return Ok(topSportsByMedal.OrderByDescending(i => i.Value).Take(limit).AsQueryable());
             return Ok(topSportsByMedal.Select(i => i.Value).OrderByDescending(i=>i.Medals).Take(limit).AsQueryable());
         }
 

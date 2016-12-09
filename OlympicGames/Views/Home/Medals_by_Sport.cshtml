@@ -40,6 +40,7 @@
             .Custom().Sort(s => s.Add("name").Ascending())
             .ServerFiltering(true)
         )
+        .AutoBind(false)
         .CascadeFrom("ComboBoxGames")
     )
 
@@ -77,6 +78,7 @@
     </h3>
     @(Html.Kendo().Chart<OlympicGames.Models.MedalsBySport>()
         .Name("MedalsBySportsChart")
+        .AutoBind(false)
         .Legend(legend => legend
             .Visible(false)
         )
@@ -137,24 +139,26 @@
 
 <script>
     function comboGamesDataBound(e) {
-        if (!this._adding) {
-            this._adding = true;
-
-            e.sender.dataSource.add({
-                name: "All olympics",
-                id: "0"
-            });
-            e.sender.select(0);
-
-            this._adding = false;
-        }
+        e.sender.unbind("dataBound");           
+        e.sender.dataSource.add({
+            name: "All olympics",
+            id: "0"
+        });
+        e.sender.select(0);      
     }
 
+    var initialLoad = true;
     function comboCountriesDataBound(e) {
-        console.log(1);
-        //e.sender.select(function (dataItem) {
-        //    return dataItem.name === "Bulgaria";
-        //});
+        e.sender.select(function (dataitem) {
+            return dataitem.name === "Bulgaria";
+        });
+        if (e.sender.selectedIndex == -1) {
+            e.sender.select(0);
+        }
+        if (initialLoad) {
+            changeChartsDs();
+            initialLoad = false;
+        }
     }
 
     function changeChartsDs() {
