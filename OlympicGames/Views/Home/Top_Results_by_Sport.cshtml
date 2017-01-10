@@ -35,7 +35,7 @@
             .DataSource(dataSource => dataSource
                 .Custom()
                 .Transport(transport => transport
-                    .Read(read => read.Url("/api/results/GetTopResults")
+                    .Read(read => read.Url("api/results/GetTopResults")
                         .Type(HttpVerbs.Get)
                         .Data("getData"))
                 )

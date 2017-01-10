@@ -18,7 +18,7 @@
         .Events(events => events
             .DataBound("comboGamesDataBound"))
         .DataSource(source => source
-            .Read(read => read.Url("/api/games"))
+            .Read(read => read.Url("api/games"))
             .Custom().Sort(s => s.Add("name").Descending())
         )
     )
@@ -34,7 +34,7 @@
         .TemplateId("CountriesItemTemplate")
         .DataSource(source => source
             .Read(read => read
-                .Url("/api/countries?flag=true")
+                .Url("api/countries?flag=true")
                 .Data("filterCountries")
              )
             .Custom().Sort(s => s.Add("name").Ascending())
@@ -102,7 +102,7 @@
             .Read(read => read
                 .Type(HttpVerbs.Get)
                 .Data("getColumnsMedalData")
-                .Url("/api/TopSportsMedals/GetTopSportsMedals")
+                .Url("api/TopSportsMedals/GetTopSportsMedals")
                 )
                 .Events(ev => ev.RequestEnd("medalsBySportRequestEnd"))
         )
@@ -124,7 +124,7 @@
             .Read(read => read
                 .Type(HttpVerbs.Get)
                 .Data("getPieMedalsData")
-                .Url("/api/SportMedalsByCountry/GetSportMedalsByCountry")
+                .Url("api/SportMedalsByCountry/GetSportMedalsByCountry")
             )
         )
         .Tooltip(tooltip => tooltip.Visible(false))

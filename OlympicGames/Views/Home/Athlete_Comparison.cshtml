@@ -17,7 +17,7 @@
                 .DataSource(dataSource => dataSource
                     .Custom()
                     .Transport(transport => transport
-                        .Read(read => read.Url("/api/sports/nocat")
+                        .Read(read => read.Url("api/sports/nocat")
                             .Type(HttpVerbs.Get)
                         )
                     )
@@ -43,7 +43,7 @@
                 .DataSource(dataSource => dataSource
                     .Custom()
                     .Transport(transport => transport
-                        .Read(read => read.Url("/api/Medals/GetTopSportsAthletes")
+                        .Read(read => read.Url("api/Medals/GetTopSportsAthletes")
                             .Type(HttpVerbs.Get)
                             .Data("getData")
                         )
@@ -78,7 +78,7 @@
         .DataSource(dataSource => dataSource
             .Custom()
             .Transport(transport => transport
-                .Read(read => read.Url("/api/Medals/GetTopSportsAthletes")
+                .Read(read => read.Url("api/Medals/GetTopSportsAthletes")
                     .Type(HttpVerbs.Get)
                     .Data("getData")
                 )

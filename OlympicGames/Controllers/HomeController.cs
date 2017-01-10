@@ -10,14 +10,12 @@ namespace OlympicGames.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
-        {
-            ViewBag.Title = "Olympic Games - Medals by Country";
-            return RedirectToActionPermanent("Medals_by_Country");
-        }
-
         public ActionResult Medals_by_Country()
         {
+            if (Request.RawUrl.Contains("/Home/"))
+            {
+                return Redirect(Request.RawUrl.Replace("Home/", ""));
+            }
 
             ViewBag.Title = "Olympic Games - Medals by Country";
             return View();
