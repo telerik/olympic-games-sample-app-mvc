@@ -4,6 +4,8 @@ Olympic Games is a sample application created with Progress &reg; UI for ASP.NET
 
 The app demonstrates how easy it is to provide data visualization and management functionality to your users and how you can integrate several Progress major ASP.NET controls with just a few lines of code.  It showcases the ease of use of our PivotGrid and the intuitiveness and desktop-like performance of the bound on the client, Chart and Gauge.
 
+Public Url - [http://demos.telerik.com/aspnet-mvc/olympic-games](http://demos.telerik.com/aspnet-mvc/olympic-games/)
+
 ## Requirments
 
 * [Progress UI for ASP.NET MVC](http://www.telerik.com/aspnet-mvc)
