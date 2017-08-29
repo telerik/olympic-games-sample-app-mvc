@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     @RenderSection("metatags", required: true)
-    
+
     <link rel="shortcut icon" href="~/Content/favicon.ico" />
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2016.3.1118/styles/kendo.common.min.css">
@@ -32,7 +32,7 @@
         f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-6X92');</script>
     <!-- End Google Tag Manager -->
-    
+
 
     <div id="header">
         <div class="topNav">
@@ -40,7 +40,7 @@
                 <div class="t-top-logo">
                     <img src="~/Content/images/telerik-top-logo.png" alt="" />
                 </div>
-                <a href="@Url.Action("About", "Home")">About this sample app</a>
+                <a href="@Url.Action("", "Home")">About this sample app</a>
                 <a href="https://github.com/telerik/olympic-games-sample-app-mvc/"  target="_blank" onclick="_gaq.push(['_trackPageview', '/ajax-olympic-sample-app/source-download']);">Download source code</a>
             </div>
         </div>
@@ -57,7 +57,7 @@
                 })
             )
             <div class="hgroup">
-                <h1><a href="@Url.Action("Index", "Home")"><img src="~/Content/images/logo_main.png" alt="Olympic Games" /></a></h1>
+                <h1><a href="@Url.Action("Medals_by_Country", "Home")"><img src="~/Content/images/logo_main.png" alt="Olympic Games" /></a></h1>
             </div>
         </div>
     </div>
