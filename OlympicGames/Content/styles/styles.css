@@ -1,157 +1,148 @@
 ﻿/* resets */
 html {
-	margin: 0;
-	padding: 0;
-	border: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
 
 article, aside, details, figcaption, figure, dialog, footer, header, hgroup, menu, nav, section {
-	display: block;
+    display: block;
 }
 
 a img {
-	border: none;
+    border: none;
 }
 
-/*body {line-height:1.5;background:white;}
-table {border-collapse:separate;border-spacing:0;}
-caption, th, td {text-align:left;font-weight:normal;float:none !important;}
-table, th, td {vertical-align:middle;}
-blockquote:before, blockquote:after, q:before, q:after {content:'';}
-blockquote, q {quotes:"" "";}*/
-
 html, body, form {
-	min-height: 100%;
-	font: 14px "Segoe UI", Arial, Helvetica, sans-serif;
+    min-height: 100%;
+    font: 14px "Segoe UI", Arial, Helvetica, sans-serif;
 }
 
 body {
-	background: #e4ebed url(../images/inner_bgr.jpg) no-repeat 50% 238px;
+    background: #e4ebed url(../images/inner_bgr.jpg) no-repeat 50% 238px;
 }
 
 a {
-	color: #005ca3;
-	text-decoration: none;
+    color: #005ca3;
+    text-decoration: none;
 }
 
-a:hover {
-	text-decoration: underline;
-}
+    a:hover {
+        text-decoration: underline;
+    }
 
 #header {
-	height: 238px;
-	background: #0c356c url(../images/header.jpg) no-repeat 50% 39px;
+    height: 238px;
+    background: #0c356c url(../images/header.jpg) no-repeat 50% 39px;
 }
 
-#header .t-top-logo {
-	margin: 8px 0 0;
-	float: left;
-}
+    #header .t-top-logo {
+        margin: 8px 0 0;
+        float: left;
+    }
 
-#header .topNav {
-	height: 39px;
-	background: #001a41;
-	text-align: right;
-}
+    #header .topNav {
+        height: 39px;
+        background: #001a41;
+        text-align: right;
+    }
 
-#header .topNav a {
-	color: #00aeff;
-	line-height: 35px;
-	margin-left: 5px;
-}
+        #header .topNav a {
+            color: #00aeff;
+            line-height: 35px;
+            margin-left: 5px;
+        }
 
-#header .topNav a:hover {
-	color: #6dc6fe;
-	text-decoration: none;
-}
+            #header .topNav a:hover {
+                color: #6dc6fe;
+                text-decoration: none;
+            }
 
-#header .topNav a:after,
-.aboutPage .links a:after {
-	content: " »";
-	font-weight: 800;
-}
+            #header .topNav a:after,
+            .aboutPage .links a:after {
+                content: " »";
+                font-weight: 800;
+            }
 
-#header .hgroup {
-	position: relative;
-	float: left;
-	margin-top: 77px;
-}
+    #header .hgroup {
+        position: relative;
+        float: left;
+        margin-top: 77px;
+    }
 
-#header .hgroup h2 {
-	position: absolute;
-	top: 60px;
-	left: 85px;
-}
+        #header .hgroup h2 {
+            position: absolute;
+            top: 60px;
+            left: 85px;
+        }
 
-/*Containers*/
-#header .topNav .nav,
-#header .headerCont,
-#content .wrapper,
-#footer .section {
-	width: 1200px;
-	margin: 0 auto;
-}
+    /*Containers*/
+    #header .topNav .nav,
+    #header .headerCont,
+    #content .wrapper,
+    #footer .section {
+        width: 1200px;
+        margin: 0 auto;
+    }
 
-/*Sprites*/
-#header .k-menu.navigation-memu {
-	float: right;
-    border: 0 none;
-    background-color: transparent;
-    background-image:none;
-}
+    /*Sprites*/
+    #header .k-menu.navigation-memu {
+        float: right;
+        border: 0 none;
+        background-color: transparent;
+        background-image: none;
+    }
 
-#header .k-item {
-	margin-left: 5px;
-	padding-bottom: 2px;
-	background: rgba(100, 100, 100, 0.3);
-	border-radius: 5px;
-	border: 0 none;
-}
+    #header .k-item {
+        margin-left: 5px;
+        padding-bottom: 2px;
+        background: rgba(100, 100, 100, 0.3);
+        border-radius: 5px;
+        border: 0 none;
+    }
 
-#header .k-item .k-link,
-.box h3 {
-	background-image: url(../images/sprite.png);
-	background-repeat: repeat-x;
-}
+        #header .k-item .k-link,
+        .box h3 {
+            background-image: url(../images/sprite.png);
+            background-repeat: repeat-x;
+        }
 
-#header .k-item .k-link {
-	display: block;
-	height: 32px;
-	line-height: 32px;
-	border-radius: 0 0 5px 5px;
-	text-shadow: 1px 1px #fff;
-	cursor: pointer;
-	text-decoration: none;
-	color: #005ca3;
-    padding: 4px 10px;
-}
+        #header .k-item .k-link {
+            display: block;
+            height: 32px;
+            line-height: 32px;
+            border-radius: 0 0 5px 5px;
+            text-shadow: 1px 1px #fff;
+            cursor: pointer;
+            text-decoration: none;
+            color: #005ca3;
+            padding: 4px 10px;
+        }
 
-#header .k-item .k-link:hover,
-#header .k-item.k-state-highlight .k-link {
-	color: #000;
-	background: #fff;
-	text-shadow: none;
-}
-
-
+            #header .k-item .k-link:hover,
+            #header .k-item.k-state-highlight .k-link {
+                color: #000;
+                background: #fff;
+                text-shadow: none;
+            }
 
 /*Content*/
 #content {
-	background: transparent url(../images/olympic_rings.png) no-repeat 50% 100%;
+    background: transparent url(../images/olympic_rings.png) no-repeat 50% 100%;
 }
 
 .by-country.listview-sports {
     height: 400px;
-    overflow-y:auto;
+    overflow-y: auto;
 }
 
 #HtmlChartStats {
@@ -159,470 +150,459 @@ a:hover {
 }
 
 .wrapper {
-	padding: 25px 0 18px;
+    padding: 25px 0 18px;
 }
 
 #content h2 {
-	font-size: 24px;
-	color: #064487;
-	margin-bottom: 10px;
+    font-size: 24px;
+    color: #064487;
+    margin-bottom: 10px;
 }
 
 .description {
-	line-height: 22px;
-	padding-bottom: 25px;
-	color: #234166;
+    line-height: 22px;
+    padding-bottom: 25px;
+    color: #234166;
 }
 
-.box,
-.aboutPage {
-	padding: 15px 17px;
-	margin: 34px 0 50px;
-	border-radius: 0 5px 5px 5px;
-	background: #fff;
-	background: rgba(255,255,255,0.7);
-	background: rgba(255,255,255,0.7) -moz-linear-gradient(top,rgba(255,255,255,1),rgba(255,255,255,0.1));
-	background: rgba(255,255,255,0.7) -o-linear-gradient(top,rgba(255,255,255,1),rgba(255,255,255,0.5));
-	background: rgba(255,255,255,0.7) -webkit-linear-gradient(top bottom,rgba(255,255,255,1),rgba(255,255,255,0.5));
-	background: rgba(255,255,255,0.7) linear-gradient(top bottom,rgba(255,255,255,1),rgba(255,255,255,0.5));
-	position: relative;
-	color: #234166;
-	box-shadow: 0 0 5px #c4cacc;
+.box, .aboutPage {
+    padding: 15px 17px;
+    margin: 34px 0 50px;
+    border-radius: 0 5px 5px 5px;
+    background: #fff;
+    background: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.7) -moz-linear-gradient(top,rgba(255,255,255,1),rgba(255,255,255,0.1));
+    background: rgba(255,255,255,0.7) -o-linear-gradient(top,rgba(255,255,255,1),rgba(255,255,255,0.5));
+    background: rgba(255,255,255,0.7) -webkit-linear-gradient(top bottom,rgba(255,255,255,1),rgba(255,255,255,0.5));
+    background: rgba(255,255,255,0.7) linear-gradient(top bottom,rgba(255,255,255,1),rgba(255,255,255,0.5));
+    position: relative;
+    color: #234166;
+    box-shadow: 0 0 5px #c4cacc;
 }
 
-.box h3 {
-	height: 34px;
-	line-height: 34px;
-	display: inline-block;
-	position: absolute;
-	left: 0;
-	top: -34px;
-	padding: 0 15px;
-	color: #fff;
-	text-transform: uppercase;
-	border-radius: 5px 5px 0 0;
-}
+    .box h3 {
+        height: 34px;
+        line-height: 34px;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: -34px;
+        padding: 0 15px;
+        color: #fff;
+        text-transform: uppercase;
+        border-radius: 5px 5px 0 0;
+    }
 
 .blueTitle {
-	background-position: 0 -100px;
-	background-color: #0f4086;
+    background-position: 0 -100px;
+    background-color: #0f4086;
 }
 
 .redTitle {
-	background-position: 0 -200px;
-	background-color: #a5001e;
+    background-position: 0 -200px;
+    background-color: #a5001e;
 }
 
 .greenTitle {
-	background-position: 0 -300px;
-	background-color: #6ba212;
+    background-position: 0 -300px;
+    background-color: #6ba212;
 }
 
 .orangeTitle {
-	background-position: 0 -400px;
-	background-color: #ef8d01;
+    background-position: 0 -400px;
+    background-color: #ef8d01;
 }
 
 .medals-by-sport .configPanel {
-	border-top-left-radius: 5px;
-	margin: 0 0 20px;
+    border-top-left-radius: 5px;
+    margin: 0 0 20px;
 }
 
-.medals-by-sport .configPanel > div {
-	float: left;
-}
+    .medals-by-sport .configPanel > div {
+        float: left;
+    }
 
 .about {
-	text-align: right;
-	font-size: 12px;
-	color: #454a4b;
+    text-align: right;
+    font-size: 12px;
+    color: #454a4b;
 }
 
 .results-gauge {
-	margin: -9px 0 23px 17px;
-    width:170px; 
-    height:202px;
+    margin: -9px 0 23px 17px;
+    width: 170px;
+    height: 202px;
 }
 
-.achievmentsGauge {
-	background: transparent url(../images/gauge.png) no-repeat 0 11px;
-	width: 202px;
-	height: 250px;
-	margin: 0 0 10px 20px;
-	overflow: hidden;
-	display:inline-block;
-	color: #0c153f;
+.achievementsGauge {
+    background: transparent url(../images/gauge.png) no-repeat 0 11px;
+    width: 202px;
+    height: 250px;
+    margin: 0 0 10px 20px;
+    overflow: hidden;
+    display: inline-block;
+    color: #0c153f;
 }
 
 .results-panel {
-	zoom: 1;
-    background:none;
+    zoom: 1;
+    background: none;
     border: none;
 }
 
-.sport-comboBox {
+.sport-dropdownlist {
     width: 300px;
 }
 
-.achievmentsGauge span {
-	text-align: center;
-	display: block;
+.achievementsGauge span {
+    text-align: center;
+    display: block;
 }
 
-.achievmentsGauge .athleteName {
-	font-weight: 800;
-	display: block;
-	margin: 10px 0 0;
-	line-height: 12px;
+.achievementsGauge .athleteName {
+    font-weight: 800;
+    display: block;
+    margin: 10px 0 0;
+    line-height: 12px;
 }
 
 div.topAthletes {
-	width: 317px;
-	height: 490px;
-	float: left;
-	margin-right: 15px;
-	padding-right: 0;
+    width: 317px;
+    height: 490px;
+    float: left;
+    margin-right: 15px;
+    padding-right: 0;
 }
 
 .topAthletes h4 {
-	color: #4c607a;
-	text-transform: uppercase;
-	font-size: 11px;
-	margin-bottom: 5px;
+    color: #4c607a;
+    text-transform: uppercase;
+    font-size: 11px;
+    margin-bottom: 5px;
 }
 
 .listBoxWrapper {
-	width: 148px;
-    display:inline-block;
-	/*margin: 0 10px 20px 0;*/
+    width: 148px;
+    display: inline-block;
 }
 
-
 div.topAthletes .RadListBox .rlbText {
-	color: #234166;
-	line-height: 30px;
+    color: #234166;
+    line-height: 30px;
 }
 
 div.topAthletes .RadListBox .rlbItem {
-	padding: 0 0 0 11px;
-	border: 1px solid #fff;
+    padding: 0 0 0 11px;
+    border: 1px solid #fff;
 }
 
 div.topAthletes .RadListBox .rlbHovered,
 div.topAthletes .RadListBox .rlbSelected {
-	background: #e3edf8;
-	color: #234166;
+    background: #e3edf8;
+    color: #234166;
 }
 
 div.topAthletes .RadListBox .rlbActive {
-	border: 1px dotted #555;
+    border: 1px dotted #555;
 }
 
 .topAthletes .RadListBox .rlbCheck {
-	margin-left: -7px;
-	margin-right: 4px;
+    margin-left: -7px;
+    margin-right: 4px;
 }
 
 .athletesListContainer {
-	background: #69b8ce;
-	background: rgba(105, 184, 206, 0.4);
-	width: 810px;
-	padding: 20px 13px;
-	margin-bottom: 50px;
-	float: right;
-	border: 1px solid #fff;
-	position: relative;
+    background: #69b8ce;
+    background: rgba(105, 184, 206, 0.4);
+    width: 810px;
+    padding: 20px 13px;
+    margin-bottom: 50px;
+    float: right;
+    border: 1px solid #fff;
+    position: relative;
 }
 
-.athletesListContainer:before {
-	content: "";
-	display: block;
-	width: 40px;
-	height: 26px;
-	background: url(../images/triangle_top.png) no-repeat;
-	position: absolute;
-	left: 41px;
-	top: -26px;
-}
+    .athletesListContainer:before {
+        content: "";
+        display: block;
+        width: 40px;
+        height: 26px;
+        background: url(../images/triangle_top.png) no-repeat;
+        position: absolute;
+        left: 41px;
+        top: -26px;
+    }
 
-.athletesListContainer h3 {
-	font-size: 26px;
-	color: #fff;
-	margin: 0 15px 20px 24px;
-}
+    .athletesListContainer h3 {
+        font-size: 26px;
+        color: #fff;
+        margin: 0 15px 20px 24px;
+    }
 
-.athletesListContainer .item {
-	float: left;
-	margin: 0 15px 10px 24px;
-}
+    .athletesListContainer .item {
+        float: left;
+        margin: 0 15px 10px 24px;
+    }
 
-.athletesListContainer dl {
-	float: left;
-	border: 1px solid #fff;
-	background: rgb(254, 254, 254);
-	background: rgba(254, 254, 254, 0.6);
-	height: 61px;
-	width: 260px;
-	margin: 10px 0 0 -20px;
-	padding: 7px 0 0 26px;
-	font-size: 12px;
-}
+    .athletesListContainer dl {
+        float: left;
+        border: 1px solid #fff;
+        background: rgb(254, 254, 254);
+        background: rgba(254, 254, 254, 0.6);
+        height: 61px;
+        width: 260px;
+        margin: 10px 0 0 -20px;
+        padding: 7px 0 0 26px;
+        font-size: 12px;
+    }
 
-* + html .athletesListContainer dl {
-	width: 250px;
-}
+    * + html .athletesListContainer dl {
+        width: 250px;
+    }
 
-.athletesListContainer dl dt {
-	float: left;
-	clear: left;
-	margin-right: 5px;
-}
+        .athletesListContainer dl dt {
+            float: left;
+            clear: left;
+            margin-right: 5px;
+        }
 
-.athletesListContainer dl dd {
-	float: left;
-}
+        .athletesListContainer dl dd {
+            float: left;
+        }
 
 .medal {
-	background: transparent url(../images/medals.png) no-repeat 0 0;
-	position: relative;
-	float: left;
-	width: 92px;
-	height: 92px;
+    background: transparent url(../images/medals.png) no-repeat 0 0;
+    position: relative;
+    float: left;
+    width: 92px;
+    height: 92px;
 }
 
 .medalSilver .medal {
-	background-position: 0 -100px;
+    background-position: 0 -100px;
 }
 
 .medalBronze .medal {
-	background-position: 0 -200px;
+    background-position: 0 -200px;
 }
 
 /* Athlete Comparison */
 .comparison.listview-box {
     height: 470px;
-    overflow:hidden;
+    overflow: hidden;
     border: 1px solid #bbdceb;
 }
 
     .comparison.listview-box .k-listview {
-        height:100%;
-        width:120%;
+        height: 100%;
+        width: 120%;
         overflow: auto;
-        list-style-type:none;
-        border:none;
+        list-style-type: none;
+        border: none;
     }
 
         .comparison.listview-box .k-listview li {
-            padding-left:10px;
-            cursor:pointer;
+            padding-left: 10px;
+            cursor: pointer;
         }
 
 .box.inline {
-    display:inline-block;
+    display: inline-block;
 }
 
-.box.inline.top {
-    width:69%;
-    vertical-align:top;
-}
+    .box.inline.top {
+        width: 69%;
+        vertical-align: top;
+    }
 
 .comparison-chart {
     height: 475px;
 }
 
-
-/**/
-
-
 /* About Page*/
-
 .aboutPage {
-	border-top-left-radius: 5px;
-	overflow: hidden;
-	padding: 50px 40px 20px;
+    border-top-left-radius: 5px;
+    overflow: hidden;
+    padding: 50px 40px 20px;
 }
 
 
-.aboutPage .main {
-	float: left;
-	width: 800px;
-	margin-right: 85px;
-}
+    .aboutPage .main {
+        float: left;
+        width: 800px;
+        margin-right: 85px;
+    }
 
-.aboutPage .aside {
-	float: left;
-	width: 235px;
-}
+    .aboutPage .aside {
+        float: left;
+        width: 235px;
+    }
 
-.aboutPage h3 {
-	color: #064487;
-	font-weight: 800;
-	font-size: 16px;
-	text-transform: uppercase;
-	margin-bottom: 20px;
-}
+    .aboutPage h3 {
+        color: #064487;
+        font-weight: 800;
+        font-size: 16px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+    }
 
-.aboutPage p {
-	margin-bottom: 15px;
-	line-height: 22px;
-}
+    .aboutPage p {
+        margin-bottom: 15px;
+        line-height: 22px;
+    }
 
-.aboutPage a {
-	color: #00aeff;
-}
+    .aboutPage a {
+        color: #00aeff;
+    }
 
-.aboutPage em {
-	color: #3a5c86;
-	font-style: italic;
-}
+    .aboutPage em {
+        color: #3a5c86;
+        font-style: italic;
+    }
 
 .usedProducts {
-	width: 620px;
-	overflow: hidden;
-	margin-bottom: 15px;
+    width: 620px;
+    overflow: hidden;
+    margin-bottom: 15px;
 }
 
-.usedProducts li {
-	width: 280px;
-	float: left;
-    line-height: 30px;
-	list-style-type: none;
-}
+    .usedProducts li {
+        width: 280px;
+        float: left;
+        line-height: 30px;
+        list-style-type: none;
+    }
 
-.usedProducts li a {
-	color: #55af46;
-}
+        .usedProducts li a {
+            color: #55af46;
+        }
 
-.usedProducts li a:hover {
-	text-decoration: none;
-	color: #106f00;
-}
+            .usedProducts li a:hover {
+                text-decoration: none;
+                color: #106f00;
+            }
 
     .usedProducts span.sprite {
-        display:inline-block;
-        vertical-align:text-bottom;       
-        margin-right:10px;
+        display: inline-block;
+        vertical-align: text-bottom;
+        margin-right: 10px;
         width: 16px;
         height: 16px;
         background: transparent url(../images/product-sprite-sheet.png) no-repeat;
     }
 
-.usedProducts .sprite.autocomplete {
-    background-position: -5px -5px;
-}
+    .usedProducts .sprite.autocomplete {
+        background-position: -5px -5px;
+    }
 
-.usedProducts .sprite.button {
-    background-position: -31px -5px;
-}
+    .usedProducts .sprite.button {
+        background-position: -31px -5px;
+    }
 
-.usedProducts .sprite.chart {
-    background-position: -57px -5px;
-}
+    .usedProducts .sprite.chart {
+        background-position: -57px -5px;
+    }
 
-.usedProducts .sprite.combobox {
-    background-position: -5px -31px;
-}
+    .usedProducts .sprite.dropdownlist {
+        background-position: -5px -31px;
+    }
 
-.usedProducts .sprite.listview {
-    background-position: -31px -31px;
-}
+    .usedProducts .sprite.listview {
+        background-position: -31px -31px;
+    }
 
-.usedProducts .sprite.multiselect {
-    background-position: -57px -31px;
-}
+    .usedProducts .sprite.multiselect {
+        background-position: -57px -31px;
+    }
 
-.usedProducts .sprite.pivotgrid {
-    background-position: -5px -57px;
-}
+    .usedProducts .sprite.pivotgrid {
+        background-position: -5px -57px;
+    }
 
-.usedProducts .sprite.slider {
-    background-position: -31px -57px;
-}
+    .usedProducts .sprite.slider {
+        background-position: -31px -57px;
+    }
 
-.usedProducts .sprite.window {
-    background-position: -57px -57px;
-}
-
+    .usedProducts .sprite.window {
+        background-position: -57px -57px;
+    }
 
 .aboutPage .links {
-	margin-left: 20px;
-	line-height: 30px;
+    margin-left: 20px;
+    line-height: 30px;
 }
 
 .aboutPage .aside h4 {
-	margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
-.aboutPage .aside h4 a {
-	color: #005ca3;
-	font-size: 16px;
-	text-decoration: none;
-	margin: 0;
-}
+    .aboutPage .aside h4 a {
+        color: #005ca3;
+        font-size: 16px;
+        text-decoration: none;
+        margin: 0;
+    }
 
-.aboutPage .aside h4 a:hover {
-	color: #00aeff;
-}
-
+        .aboutPage .aside h4 a:hover {
+            color: #00aeff;
+        }
 
 .aboutPage .aside a {
-	margin-bottom: 20px;
-	display: block;
+    margin-bottom: 20px;
+    display: block;
 }
 
 div.OlympicGamesTooltips td {
-	vertical-align: middle;
+    vertical-align: middle;
 }
 
 .OlympicGamesTooltips .rtWrapperContent div {
-	color: #234166;
+    color: #234166;
 }
-
 
 /* Footer */
 #footer {
-	background-color: #fff;
-	color: #818692;
-	line-height: 1.4em;
-	font-size: 11px;
-	padding: 10px 0;
+    background-color: #fff;
+    color: #818692;
+    line-height: 1.4em;
+    font-size: 11px;
+    padding: 10px 0;
 }
 
-#footer .copyright {
-	padding: 10px 0;
-}
+    #footer .copyright {
+        padding: 10px 0;
+    }
 
-#footer .copyright a, #footer .copyright a:hover {
-	color: #005ca3;
-	text-decoration: none;
-}
+        #footer .copyright a, #footer .copyright a:hover {
+            color: #005ca3;
+            text-decoration: none;
+        }
 
-#footer .telerik,
-#footer .nav {
-	display: inline-block;
-	vertical-align: middle;
-	margin-right: 20px;
-	white-space: nowrap;
-	overflow: hidden;
-}
+    #footer .telerik,
+    #footer .nav {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
 
-* + html #footer .telerik,
-* + html #footer .nav {
-	float: left;
-}
+    * + html #footer .telerik,
+    * + html #footer .nav {
+        float: left;
+    }
 
-* + html #footer .telerik {
-	margin-top: 15px;
-}
+    * + html #footer .telerik {
+        margin-top: 15px;
+    }
 
 .telerik img {
-	display: block;
+    display: block;
 }
 
 #footer .nav a {
-	padding-right: 4px;
-	padding-left: 1px;
-	margin-right: -1px;
-	border-right: 1px solid #aaa;
+    padding-right: 4px;
+    padding-left: 1px;
+    margin-right: -1px;
+    border-right: 1px solid #aaa;
 }

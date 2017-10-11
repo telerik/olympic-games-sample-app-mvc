@@ -1,6 +1,6 @@
 ﻿@section metatags{
-    <meta name="title" content="Kendo Bar and Pie Charts | Olympic Games Sample App" />
-    <meta name="description" content="See the power of the client-side rendering Progress UI for ASP.NET MVC Chart offers. You also get client-side events and improved user interactions." />
+    <meta name="title" content="Progress Telerik UI for ASP.NET MVC Bar Chart and Pie Chart | Olympic Games Sample App" />
+    <meta name="description" content="See the power of the client-side rendering Progress Telerik UI for ASP.NET MVC Chart offers. You also get client-side events and improved user interactions." />
 }
 <h2>Medals by Sport</h2>
 
@@ -16,7 +16,7 @@
         .HtmlAttributes(new { style = "width:200px;" })
         .Filter("contains")
         .Events(events => events
-            .DataBound("comboGamesDataBound"))
+            .DataBound("dropDownListGamesDataBound"))
         .DataSource(source => source
             .Read(read => read.Url("api/games"))
             .Custom().Sort(s => s.Add("name").Descending())
@@ -30,7 +30,7 @@
         .HtmlAttributes(new { style = "width:200px;" })
         .Filter("contains")
         .Events(events => events
-            .DataBound("comboCountriesDataBound"))
+            .DataBound("dropDownListCountriesDataBound"))
         .TemplateId("CountriesItemTemplate")
         .DataSource(source => source
             .Read(read => read
@@ -138,7 +138,7 @@
 </script>
 
 <script>
-    function comboGamesDataBound(e) {
+    function dropDownListGamesDataBound(e) {
         e.sender.unbind("dataBound");
         e.sender.dataSource.add({
             name: "All olympics",
@@ -148,14 +148,17 @@
     }
 
     var initialLoad = true;
-    function comboCountriesDataBound(e) {
+
+    function dropDownListCountriesDataBound(e) {
         if (initialLoad) {
             e.sender.select(function (dataitem) {
                 return dataitem.name === "Bulgaria";
             });
+
             if (e.sender.selectedIndex == -1) {
                 e.sender.select(0);
             }
+
             changeChartsDs();
             initialLoad = false;
         }
@@ -166,6 +169,7 @@
     }
 
     var sportName;
+
     function medalsBySportRequestEnd(e) {
         if (e.response[0] && e.response[0].Sport) {
             sportName = e.response[0].Sport;
@@ -173,11 +177,9 @@
             medalsTypesChart.dataSource.read();
             medalsTypesChart.setOptions({ title: { text: sportName + " medals" } });
         }
-
     }
 
     function filterCountries() {
-        debugger;
         return {
             gameId: $("#DropDownListGames").val(),
             countriesFilter: $("#DropDownListCountries").data("kendoDropDownList").filterInput.val()
@@ -188,6 +190,7 @@
         var gameId = $("#DropDownListGames").data("kendoDropDownList").value();
         var countryId = $("#DropDownListCountries").data("kendoDropDownList").value();
         var limit = $("#CountriesCount").data("kendoDropDownList").value();
+
         return {
             gameId: gameId,
             countryId: countryId,
@@ -198,6 +201,7 @@
     function getPieMedalsData() {
         var gameId = $("#DropDownListGames").data("kendoDropDownList").value();
         var countryId = $("#DropDownListCountries").data("kendoDropDownList").value();
+
         return {
             gameId: gameId,
             countryId: countryId,

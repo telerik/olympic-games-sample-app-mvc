@@ -1,18 +1,18 @@
 ﻿@section metatags{
-    <meta name="title" content="ASP.NET Gauge | Olympic Games Sample App" />
-    <meta name="description" content="See how you can use many instances of Progress UI for ASP.NET Gauge wrappers on the same page and still keep it lightning fast and without any complex markup from the server." />
+    <meta name="title" content="Progress Telerik UI for ASP.NET MVC Radial Gauge | Olympic Games Sample App" />
+    <meta name="description" content="See how you can use many instances of Progress Telerik UI for ASP.NET MVC Radial Gauge wrappers on the same page and still keep it lightning fast and without any complex markup from the server." />
 }
-
 
 <h2>Top Results by Sport</h2>
 <p class="description">See the top 10 results of all time for the sport you choose.</p>
 <div class="box">
     <h3 class="redTitle">Top Results by Sport</h3>
 
-        @(Html.Kendo().DropDownList()
-        .Name("ComboBoxSports")
-        .HtmlAttributes(new { @class = "sport-comboBox" })
-        .Items(items => {
+    @(Html.Kendo().DropDownList()
+        .Name("DropDownListSports")
+        .HtmlAttributes(new { @class = "sport-dropdownlist" })
+        .Items(items =>
+        {
             items.Add().Text("100m Men Track & Field").Value("559").Selected(true);
             items.Add().Text("100m Women Track & Field").Value("560");
             items.Add().Text("1000m Time Trial Men Cycling").Value("114");
@@ -25,9 +25,9 @@
             items.Add().Text("Rapid-Fire Pistol Shooting").Value("437");
         })
         .Events(events => events.Change("onChange"))
-        )
+    )
 
-        @(Html.Kendo().ListView<OlympicGames.Models.AthleteResult>()
+    @(Html.Kendo().ListView<OlympicGames.Models.AthleteResult>()
             .Name("ResultsPanel")
             .HtmlAttributes(new { @class = "results-panel" })
             .TagName("div")
@@ -41,14 +41,13 @@
                 )
             )
             .Events(ev => ev.DataBinding("onDataBinding").DataBound("onDataBound"))
-            
-        )
+    )
 
-        <script type="text/x-kendo-tmpl" id="GuageTemplate">
-            <div class="achievmentsGauge">
-                @(Html.Kendo().RadialGauge()
+    <script type="text/x-kendo-tmpl" id="GuageTemplate">
+        <div class="achievementsGauge">
+            @(Html.Kendo().RadialGauge()
                     .Name("gauge_#=uid#")
-                    .HtmlAttributes(new { @class= "results-gauge"})
+                    .HtmlAttributes(new { @class = "results-gauge" })
                     .Scale(scale => scale
                         .Min(0)
                         .Max(100)
@@ -59,32 +58,14 @@
                     )
                     .Pointer(pointer => pointer.Color("white"))
                     .ToClientTemplate()
-                )
+            )
 
-                <span class="athleteName">#:Name#</span>
-                <span>#:Result#</span>
+            <span class="athleteName">#:Name#</span>
+            <span>#:Result#</span>
 
-                #items.push({uid:uid, result: NumResult});#
-            </div>
-        </script>
-    @*$("\\#gauge_" + uid).data("kendoRadialGauge").value(Result);@
-
-    @*<telerik:RadComboBox ID="RadComboBoxSports" runat="server" AutoPostBack="true" MarkFirstMatch="true"
-                            OnSelectedIndexChanged="RadComboBoxSports_SelectedIndexChanged">
-        <Items>
-            <telerik:RadComboBoxItem Selected="true" Value="559" Text="100m Men Track & Field" />
-            <telerik:RadComboBoxItem Selected="true" Value="560" Text="100m Women Track & Field" />
-            <telerik:RadComboBoxItem Selected="true" Value="114" Text="1000m Time Trial Men Cycling" />
-            <telerik:RadComboBoxItem Selected="true" Value="154" Text="Platform Diving Men" />
-            <telerik:RadComboBoxItem Selected="true" Value="155" Text="Platform Diving Women" />
-            <telerik:RadComboBoxItem Selected="true" Value="472" Text="100m Backstroke Men Swimming" />
-            <telerik:RadComboBoxItem Selected="true" Value="473" Text="100m Backstroke Women Swimming" />
-            <telerik:RadComboBoxItem Selected="true" Value="896" Text="Ski Jump" />
-            <telerik:RadComboBoxItem Selected="true" Value="405" Text="Free Pistol Shooting" />
-            <telerik:RadComboBoxItem Selected="true" Value="437" Text="Rapid-Fire Pistol Shooting" />
-        </Items>
-    </telerik:RadComboBox>*@
-
+            #items.push({uid:uid, result: NumResult});#
+        </div>
+    </script>
 </div>
 
 @section scripts{
@@ -96,7 +77,6 @@
         }
 
         function getData() {
-            debugger;
             var value = getSportId();
             return {
                 sportId: value
@@ -104,7 +84,7 @@
         }
 
         function getSportId() {
-            return $("#ComboBoxSports").data("kendoDropDownList").value();
+            return $("#DropDownListSports").data("kendoDropDownList").value();
         }
 
         function onDataBinding() {
@@ -112,11 +92,12 @@
         }
 
         function onDataBound() {
-            var sportId = parseInt(getSportId(),10);
+            var sportId = parseInt(getSportId(), 10);
+
             for (var i = 0; i < items.length; i++) {
                 var item = items[i];
                 var gauge = $("#gauge_" + item.uid).data("kendoRadialGauge");
-                
+
                 switch (sportId) {
                     case 559:
                         setupGauge(gauge, 9, 10, 0.10);
@@ -160,8 +141,6 @@
             gauge.options.scale.max = max;
             gauge.options.scale.majorUnit = majorUnit;
         }
-        
+
     </script>
 }
-
-
