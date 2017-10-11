@@ -9,7 +9,7 @@
 <div class="box">
     <h3 class="redTitle">Top Results by Sport</h3>
 
-        @(Html.Kendo().ComboBox()
+        @(Html.Kendo().DropDownList()
         .Name("ComboBoxSports")
         .HtmlAttributes(new { @class = "sport-comboBox" })
         .Items(items => {
@@ -96,6 +96,7 @@
         }
 
         function getData() {
+            debugger;
             var value = getSportId();
             return {
                 sportId: value
@@ -103,7 +104,7 @@
         }
 
         function getSportId() {
-            return $("#ComboBoxSports").data("kendoComboBox").value();
+            return $("#ComboBoxSports").data("kendoDropDownList").value();
         }
 
         function onDataBinding() {

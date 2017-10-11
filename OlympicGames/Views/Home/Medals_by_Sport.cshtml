@@ -9,8 +9,8 @@
     See the overall number of medals per sport in the bar chart and click on the bars to get a breakdown of the type of medals in the pie chart.
 </p>
 <div class="box configPanel">
-    @(Html.Kendo().ComboBox()
-        .Name("ComboBoxGames")
+    @(Html.Kendo().DropDownList()
+        .Name("DropDownListGames")
         .DataTextField("name")
         .DataValueField("id")
         .HtmlAttributes(new { style = "width:200px;" })
@@ -23,8 +23,8 @@
         )
     )
 
-    @(Html.Kendo().ComboBox()
-        .Name("ComboBoxCountries")
+    @(Html.Kendo().DropDownList()
+        .Name("DropDownListCountries")
         .DataTextField("name")
         .DataValueField("id")
         .HtmlAttributes(new { style = "width:200px;" })
@@ -41,10 +41,10 @@
             .ServerFiltering(true)
         )
         .AutoBind(false)
-        .CascadeFrom("ComboBoxGames")
+        .CascadeFrom("DropDownListGames")
     )
 
-    @(Html.Kendo().ComboBox()
+    @(Html.Kendo().DropDownList()
         .Name("CountriesCount")
         .DataTextField("Text")
         .DataValueField("Value")
@@ -139,23 +139,23 @@
 
 <script>
     function comboGamesDataBound(e) {
-        e.sender.unbind("dataBound");           
+        e.sender.unbind("dataBound");
         e.sender.dataSource.add({
             name: "All olympics",
             id: "0"
         });
-        e.sender.select(0);      
+        e.sender.select(0);
     }
 
     var initialLoad = true;
     function comboCountriesDataBound(e) {
-        e.sender.select(function (dataitem) {
-            return dataitem.name === "Bulgaria";
-        });
-        if (e.sender.selectedIndex == -1) {
-            e.sender.select(0);
-        }
         if (initialLoad) {
+            e.sender.select(function (dataitem) {
+                return dataitem.name === "Bulgaria";
+            });
+            if (e.sender.selectedIndex == -1) {
+                e.sender.select(0);
+            }
             changeChartsDs();
             initialLoad = false;
         }
@@ -177,16 +177,17 @@
     }
 
     function filterCountries() {
+        debugger;
         return {
-            gameId: $("#ComboBoxGames").val(),
-            countriesFilter: $("#ComboBoxCountries").data("kendoComboBox").value()
+            gameId: $("#DropDownListGames").val(),
+            countriesFilter: $("#DropDownListCountries").data("kendoDropDownList").filterInput.val()
         };
     }
 
     function getColumnsMedalData() {
-        var gameId = $("#ComboBoxGames").data("kendoComboBox").value();
-        var countryId = $("#ComboBoxCountries").data("kendoComboBox").value();
-        var limit = $("#CountriesCount").data("kendoComboBox").value();
+        var gameId = $("#DropDownListGames").data("kendoDropDownList").value();
+        var countryId = $("#DropDownListCountries").data("kendoDropDownList").value();
+        var limit = $("#CountriesCount").data("kendoDropDownList").value();
         return {
             gameId: gameId,
             countryId: countryId,
@@ -195,8 +196,8 @@
     }
 
     function getPieMedalsData() {
-        var gameId = $("#ComboBoxGames").data("kendoComboBox").value();
-        var countryId = $("#ComboBoxCountries").data("kendoComboBox").value();
+        var gameId = $("#DropDownListGames").data("kendoDropDownList").value();
+        var countryId = $("#DropDownListCountries").data("kendoDropDownList").value();
         return {
             gameId: gameId,
             countryId: countryId,
@@ -204,5 +205,3 @@
         }
     }
 </script>
-
-

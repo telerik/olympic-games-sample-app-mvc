@@ -90,6 +90,7 @@
 @section scripts{
 <script>
     function onSportsDataBound(ev) {
+      
         var sportsList = ev.sender;
         sportsList.select(sportsList.element.children().first());
         sportsList.bind("change", onChange);
@@ -98,7 +99,8 @@
 
     function onAthletesDataBound(ev) {
         var athletesList = ev.sender;
-        athletesList.select(athletesList.element.children());
+        athletesList.element.children().addClass("k-state-selected");
+
     }
 
     function onChange(ev) {
@@ -112,6 +114,7 @@
     }
 
     function updateChart() {
+        console.trace()
         $("#ChartAthletes").data("kendoChart").dataSource.read();
     }
 
@@ -125,8 +128,7 @@
                             .select()
                             .map(function (i, elm) {
                                 return $(this).data("val");
-                            });
-        console.log(athleteIds.toArray());
+                            });        
         return {
             sportId: (sportId || 1),
             athleteIds: athleteIds.toArray()

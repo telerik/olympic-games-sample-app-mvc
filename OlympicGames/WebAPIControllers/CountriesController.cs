@@ -61,8 +61,9 @@ namespace OlympicGames.WebApiControllers
             var countries = db.countries.Where(x => distCountriesResult.Contains(x.id));
             if (!string.IsNullOrEmpty(countriesFilter))
             {
-                countries = countries.Where(c => c.name.Contains(countriesFilter));
+                countries = countries.Where(c => c.name.Contains(countriesFilter.Trim()));
             }
+
             return countries;
         }
 

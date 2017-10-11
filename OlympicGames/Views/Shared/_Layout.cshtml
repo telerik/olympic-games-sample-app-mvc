@@ -40,7 +40,7 @@
                 <div class="t-top-logo">
                     <img src="~/Content/images/telerik-top-logo.png" alt="" />
                 </div>
-                <a href="@Url.Action("", "Home")">About this sample app</a>
+                <a href="@Url.Action("About", "Home")">About this sample app</a>
                 <a href="https://github.com/telerik/olympic-games-sample-app-mvc/"  target="_blank" onclick="_gaq.push(['_trackPageview', '/ajax-olympic-sample-app/source-download']);">Download source code</a>
             </div>
         </div>
@@ -73,7 +73,6 @@
         <div class="section">
             <div class="nav">
                 <a href="http://www.telerik.com/company/contact-us.aspx">Contact Us</a>
-                <a href="http://feedback.telerik.com/Project/108">Site Feedback</a>
                 <a href="http://www.telerik.com/company/terms.aspx">Terms of Use</a>
                 <a href="http://www.telerik.com/company/privacy-policy.aspx">Privacy Policy</a>
             </div>
@@ -83,9 +82,6 @@
         </div>
     </div>
 
-    @*@Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
-    <script src="~/Scripts/marketo-scripts.js"></script>
 </body>
 </html>
