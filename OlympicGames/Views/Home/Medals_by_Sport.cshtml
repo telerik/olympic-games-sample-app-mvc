@@ -8,8 +8,9 @@
     Check the disciplines your country excelled at in a specific Olympic year.<br />
     See the overall number of medals per sport in the bar chart and click on the bars to get a breakdown of the type of medals in the pie chart.
 </p>
-<div class="box configPanel">
-    @(Html.Kendo().DropDownList()
+<form id="myform">
+    <div class="box configPanel">
+        @(Html.Kendo().DropDownList()
         .Name("DropDownListGames")
         .DataTextField("name")
         .DataValueField("id")
@@ -21,14 +22,15 @@
             .Read(read => read.Url("api/games"))
             .Custom().Sort(s => s.Add("name").Descending())
         )
-    )
+        )
 
-    @(Html.Kendo().DropDownList()
+        @(Html.Kendo().DropDownList()
         .Name("DropDownListCountries")
         .DataTextField("name")
         .DataValueField("id")
-        .HtmlAttributes(new { style = "width:200px;" })
+        .HtmlAttributes(new { style = "width:200px;", required = "required" })
         .Filter("contains")
+        .OptionLabel("Select a Country")
         .Events(events => events
             .DataBound("dropDownListCountriesDataBound"))
         .TemplateId("CountriesItemTemplate")
@@ -42,9 +44,9 @@
         )
         .AutoBind(false)
         .CascadeFrom("DropDownListGames")
-    )
+        )
 
-    @(Html.Kendo().DropDownList()
+        @(Html.Kendo().DropDownList()
         .Name("CountriesCount")
         .DataTextField("Text")
         .DataValueField("Value")
@@ -64,19 +66,19 @@
         })
         .HtmlAttributes(new { style = "width:200px;" })
         .Filter("contains")
-    )
+        )
 
-    @(Html.Kendo().Button()
+        @(Html.Kendo().Button()
         .Name("ConfigureButton")
         .Content("Update chart")
-        .HtmlAttributes(new { onclick = "changeChartsDs();return false;" })
-    )
-</div>
-<div class="box" style="width: 744px; float: left;">
-    <h3 class="redTitle">
-        Medals By Sport
-    </h3>
-    @(Html.Kendo().Chart<OlympicGames.Models.MedalsBySport>()
+        .HtmlAttributes(new { onclick = "changeChartsDs();return false;", @class = "bySportButtonClass" })
+        )
+    </div>
+    <div class="box" style="width: 744px; float: left;">
+        <h3 class="redTitle">
+            Medals By Sport
+        </h3>
+        @(Html.Kendo().Chart<OlympicGames.Models.MedalsBySport>()
         .Name("MedalsBySportsChart")
         .AutoBind(false)
         .Legend(legend => legend
@@ -106,13 +108,13 @@
                 )
                 .Events(ev => ev.RequestEnd("medalsBySportRequestEnd"))
         )
-    )
-</div>
-<div class="box" style="width: 356px; float: right;">
-    <h3 class="greenTitle">
-        Medal Type
-    </h3>
-    @(Html.Kendo().Chart<OlympicGames.Models.MedalsByType>()
+        )
+    </div>
+    <div class="box" style="width: 356px; float: right;">
+        <h3 class="greenTitle">
+            Medal Type
+        </h3>
+        @(Html.Kendo().Chart<OlympicGames.Models.MedalsByType>()
         .Name("MedalTypesChart")
         .AutoBind(false)
         .Series(series => series
@@ -129,15 +131,21 @@
         )
         .Tooltip(tooltip => tooltip.Visible(false))
         .Legend(legend => legend.Position(ChartLegendPosition.Bottom))
-    )
-</div>
-<br style="clear: both;" />
-
+        )
+    </div>
+    <br style="clear: both;" />
+</form>
 <script id="CountriesItemTemplate" type="text/x-kendo-template">
-    <span class='countryFlag #= data.name.toLowerCase().replace(' ', ' _') #'></span>#= data.name #
+    @*remove all empty spaces, dots and content between parentheses for css class*@
+    <span class='countryFlag #= data.name.toLowerCase().replace(/ *\([^)]*\) */g, "").replace(/\./g, "").split(' ').join("_") #'></span>#= data.name #
 </script>
 
 <script>
+  //  $(document).ready(function () {
+        $("#myform").kendoValidator();
+ //   })
+
+
     function dropDownListGamesDataBound(e) {
         e.sender.unbind("dataBound");
         e.sender.dataSource.add({
@@ -162,10 +170,20 @@
             changeChartsDs();
             initialLoad = false;
         }
+        else {
+            if (e.sender.selectedIndex == -1) {
+                e.sender.select(0);
+            }
+        }
+
     }
 
     function changeChartsDs() {
-        $("#MedalsBySportsChart").data("kendoChart").dataSource.read();
+        var validator = $("#myform").kendoValidator().data("kendoValidator");     
+        validator.validate();
+        if (validator.validate() !== false) {
+            $("#MedalsBySportsChart").data("kendoChart").dataSource.read();
+        }
     }
 
     var sportName;

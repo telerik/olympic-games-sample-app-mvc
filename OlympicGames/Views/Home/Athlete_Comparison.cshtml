@@ -90,7 +90,7 @@
 @section scripts{
 <script>
     function onSportsDataBound(ev) {
-      
+        console.log(1)
         var sportsList = ev.sender;
         sportsList.select(sportsList.element.children().first());
         sportsList.bind("change", onChange);
@@ -104,7 +104,10 @@
     }
 
     function onChange(ev) {
-        updateAthletes();
+        setTimeout(function () {
+            updateAthletes();
+        },500)
+        
     }
 
     function updateAthletes() {
@@ -114,7 +117,6 @@
     }
 
     function updateChart() {
-        console.trace()
         $("#ChartAthletes").data("kendoChart").dataSource.read();
     }
 

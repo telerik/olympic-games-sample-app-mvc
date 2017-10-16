@@ -423,6 +423,15 @@ div.topAthletes .RadListBox .rlbActive {
     height: 475px;
 }
 
+/* Medals By Sport Page*/
+
+.bySportButtonClass {
+    margin-top: -2px;
+}
+
+html .k-tooltip-validation {
+    position: absolute;
+}
 /* About Page*/
 .aboutPage {
     border-top-left-radius: 5px;
@@ -431,38 +440,38 @@ div.topAthletes .RadListBox .rlbActive {
 }
 
 
-    .aboutPage .main {
-        float: left;
-        width: 800px;
-        margin-right: 85px;
-    }
+.aboutPage .main {
+    float: left;
+    width: 800px;
+    margin-right: 85px;
+}
 
-    .aboutPage .aside {
-        float: left;
-        width: 235px;
-    }
+.aboutPage .aside {
+    float: left;
+    width: 235px;
+}
 
-    .aboutPage h3 {
-        color: #064487;
-        font-weight: 800;
-        font-size: 16px;
-        text-transform: uppercase;
-        margin-bottom: 20px;
-    }
+.aboutPage h3 {
+    color: #064487;
+    font-weight: 800;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
 
-    .aboutPage p {
-        margin-bottom: 15px;
-        line-height: 22px;
-    }
+.aboutPage p {
+    margin-bottom: 15px;
+    line-height: 22px;
+}
 
-    .aboutPage a {
-        color: #00aeff;
-    }
+.aboutPage a {
+    color: #00aeff;
+}
 
-    .aboutPage em {
-        color: #3a5c86;
-        font-style: italic;
-    }
+.aboutPage em {
+    color: #3a5c86;
+    font-style: italic;
+}
 
 .usedProducts {
     width: 620px;
