@@ -194,7 +194,13 @@
         function onOpen(e) {
             var multiSelect = e.sender;
             $(e.sender.input).on("keydown", function (z) {
-                stopSelection(z, multiSelect);
+                //prevent the selection with Ctrl + A
+                if (z.ctrlKey && z.which == 65) {
+                    z.stopImmediatePropagation()
+                    multiSelect.value([205, 72, 76, 204])
+                }
+                else
+                    stopSelection(z, multiSelect);
             })
         }
 

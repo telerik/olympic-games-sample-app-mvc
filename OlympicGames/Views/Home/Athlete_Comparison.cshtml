@@ -1,6 +1,6 @@
 ﻿@section metatags{
-<meta name="title" content="Progress Telerik UI for ASP.NET MVC Bar Chart and ListView | Olympic Games Sample App" />
-<meta name="description" content="Take a look at how easy it is to implement Progress Telerik UI for ASP.NET MVC Bar Chart and ListView wrappers to display information in an easy-to-understand manner." />
+    <meta name="title" content="Progress Telerik UI for ASP.NET MVC Bar Chart and ListView | Olympic Games Sample App" />
+    <meta name="description" content="Take a look at how easy it is to implement Progress Telerik UI for ASP.NET MVC Bar Chart and ListView wrappers to display information in an easy-to-understand manner." />
 }
 
 <h2>Athlete Comparison</h2>
@@ -88,53 +88,52 @@
 </div>
 
 @section scripts{
-<script>
-    function onSportsDataBound(ev) {
-        console.log(1)
-        var sportsList = ev.sender;
-        sportsList.select(sportsList.element.children().first());
-        sportsList.bind("change", onChange);
-        updateAthletes();
-    }
-
-    function onAthletesDataBound(ev) {
-        var athletesList = ev.sender;
-        athletesList.element.children().addClass("k-state-selected");
-
-    }
-
-    function onChange(ev) {
-        setTimeout(function () {
+    <script>
+        function onSportsDataBound(ev) {
+            var sportsList = ev.sender;
+            sportsList.select(sportsList.element.children().first());
+            sportsList.bind("change", onChange);
             updateAthletes();
-        },500)
-        
-    }
+        }
 
-    function updateAthletes() {
-        var listView = $("#ListViewAthletes").data("kendoListView");
-        listView.clearSelection();
-        listView.dataSource.read();
-    }
+        function onAthletesDataBound(ev) {
+            var athletesList = ev.sender;
+            athletesList.element.children().addClass("k-state-selected");
 
-    function updateChart() {
-        $("#ChartAthletes").data("kendoChart").dataSource.read();
-    }
+            var lvDisciplines = $("#ListViewSports").data("kendoListView");
+            kendo.ui.progress(lvDisciplines.element, false);
+        }
 
-    function onAthleteSelect(ev) {
-        updateChart();
-    }
+        function onChange(ev) {
+            kendo.ui.progress(ev.sender.element, true);
+            updateAthletes();
+        }
 
-    function getData(ev) {
-        var sportId = $("#ListViewSports").data("kendoListView").select().data("val");
-        var athleteIds = $("#ListViewAthletes").data("kendoListView")
-                            .select()
-                            .map(function (i, elm) {
-                                return $(this).data("val");
-                            });        
-        return {
-            sportId: (sportId || 1),
-            athleteIds: athleteIds.toArray()
-        };
-    }
-</script>    
+        function updateAthletes() {
+            var listView = $("#ListViewAthletes").data("kendoListView");
+            listView.clearSelection();
+            listView.dataSource.read();
+        }
+
+        function updateChart() {
+            $("#ChartAthletes").data("kendoChart").dataSource.read();
+        }
+
+        function onAthleteSelect(ev) {
+            updateChart();
+        }
+
+        function getData(ev) {
+            var sportId = $("#ListViewSports").data("kendoListView").select().data("val");
+            var athleteIds = $("#ListViewAthletes").data("kendoListView")
+                                .select()
+                                .map(function (i, elm) {
+                                    return $(this).data("val");
+                                });
+            return {
+                sportId: (sportId || 1),
+                athleteIds: athleteIds.toArray()
+            };
+        }
+    </script>
 }
