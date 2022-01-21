@@ -129,9 +129,8 @@
     <script type="text/x-kendo-tmpl" id="ListViewItemTemplate">
         <div>
             @(Html.Kendo().CheckBox()
-                .Name("sportId_#:id#")
-                .Label("#:name#")
-                .HtmlAttributes(new { value = "#:id#", @class = "sportId" })
+                .Name("sportId_#=id#")
+                .Label("#=name#")
                 .ToClientTemplate()
             )
         </div>
@@ -267,7 +266,7 @@
             var rangeDates = rangeSlider.value();
             var sportIds = $("#ListViewSports input:checkbox:checked")
                 .map(function (i, elm) {
-                    return $(this).val();
+                    return $(this).attr("id").split("_")[1];
                 }).get();
 
             return {
