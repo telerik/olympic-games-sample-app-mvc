@@ -100,62 +100,24 @@ namespace OlympicGames.WebApiControllers
         [ResponseType(typeof(IQueryable<PivotGridResultItem>))]
         public IHttpActionResult GetPivotGridResultItems([FromUri] int[] countryIds, [FromUri] int[] sportIds, [FromUri] int startYear, [FromUri] int endYear)
         {
-            var mainSportsById = db.sports.ToDictionary(key => key.id, value => value.name);
-
-            var games = db.games.ToDictionary(key => key.id);
-
-            var sports = db.sports.ToDictionary(key => key.id);
-
-            var athletes = db.athletes.ToDictionary(key => key.id);
-
-            var contries = db.countries.ToDictionary(key => key.id);
-
-            if (countryIds.Length == 0)
-            {
-                countryIds = contries.Select(x => x.Value.id).ToArray();
-            }
-
-            var athletesBySportArr = new List<int>();
-
-            if (sportIds.Length == 0)
-            {
-                athletesBySportArr = athletes.Select(x => x.Value.id).ToList();
-            }
-            else
-            {
-                athletesBySportArr = athletes.Where(x => sportIds.Contains(x.Value.sport)).Select(x => x.Value.id).ToList();
-            }
-
-            var results = db.results.Where(item => item.medal.HasValue &&
-                                                   countryIds.Contains(item.country) &&
-                                                   athletesBySportArr.Contains(item.athlete) &&
-                                                   db.games.FirstOrDefault(x => x.id == item.game).year >= startYear &&
-                                                   db.games.FirstOrDefault(x => x.id == item.game).year <= endYear)
-                                                   .Take(5).OrderBy(x => x.medal);
-
-            var data = new List<PivotGridResultItem>();
-
-            foreach (var result in results)
-            {
-                var MedalType = ((MedalType) result.medal).ToString("F");
-                var CountryName = contries[result.country].name;
-                var OlympicsGame = String.Format("{0} {1} {2}",
-                                      games[result.game].year, contries[games[result.game].country].name, games[result.game].city);
-                var OlympicsYear = games[result.game].year;
-                var SportName = sports[athletes[result.athlete].sport].name;
-
-
-                data.Add(new PivotGridResultItem
+            var results = db.results
+                .Where(item => item.medal.HasValue &&
+                                db.countries.Any(x => x.id == item.country) &&
+                                db.athletes.Any(x => x.id == item.athlete) &&
+                                db.games.FirstOrDefault(g => g.id == item.game).year >= startYear &&
+                                db.games.FirstOrDefault(g => g.id == item.game).year <= endYear)
+                .OrderBy(x => x.medal)
+                .Select(result => new PivotGridResultItem
                 {
-                    MedalType = MedalType,
-                    CountryName = CountryName,
-                    OlympicsGame = OlympicsGame,
-                    OlympicsYear = OlympicsYear,
-                    SportName = SportName
-                });
-            }
+                    MedalType = db.medals.FirstOrDefault(g => g.id == result.medal).name,
+                    CountryName = db.countries.FirstOrDefault(g => g.id == result.country).name,
+                    OlympicsGame = db.games.FirstOrDefault(g => g.id == result.game).year + " " + db.countries.FirstOrDefault(s => s.id == db.games.FirstOrDefault(g => g.id == result.game).country).name + " " + db.games.FirstOrDefault(g => g.id == result.game).city,
+                    OlympicsYear = db.games.FirstOrDefault(g => g.id == result.game).year,
+                    SportName = db.sports.FirstOrDefault(s => s.id == db.athletes.FirstOrDefault(g => g.id == result.athlete).sport).name
+                })
+                .ToList();
 
-            return Ok(new { Data = data });
+            return Ok(new { Data = results });
         }
 
         [Route("api/results/GetTopResults")]
