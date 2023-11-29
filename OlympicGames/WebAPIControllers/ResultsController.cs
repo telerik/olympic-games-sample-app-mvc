@@ -126,7 +126,12 @@ namespace OlympicGames.WebApiControllers
                 athletesBySportArr = athletes.Where(x => sportIds.Contains(x.Value.sport)).Select(x => x.Value.id).ToList();
             }
 
-            var results = db.results.Where(item => item.medal.HasValue).Take(5).OrderBy(x => x.medal);
+            var results = db.results.Where(item => item.medal.HasValue &&
+                                                   countryIds.Contains(item.country) &&
+                                                   athletesBySportArr.Contains(item.athlete) &&
+                                                   db.games.FirstOrDefault(x => x.id == item.game).year >= startYear &&
+                                                   db.games.FirstOrDefault(x => x.id == item.game).year <= endYear)
+                                                   .Take(5).OrderBy(x => x.medal);
 
             var data = new List<PivotGridResultItem>();
 
