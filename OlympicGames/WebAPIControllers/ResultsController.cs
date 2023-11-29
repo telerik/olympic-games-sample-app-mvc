@@ -102,8 +102,8 @@ namespace OlympicGames.WebApiControllers
         {
             var results = db.results
                 .Where(item => item.medal.HasValue &&
-                                db.countries.Any(x => x.id == item.country) &&
-                                db.athletes.Any(x => x.id == item.athlete) &&
+                                (countryIds.Count() > 0 ? countryIds.Contains(item.country) : db.countries.Any(x => x.id == item.country)) &&
+                                (sportIds.Count() > 0 ? db.athletes.Where(x => x.id == item.athlete).Any(x => sportIds.Contains(x.sport)) : db.athletes.Any(x => x.id == item.athlete)) &&
                                 db.games.FirstOrDefault(g => g.id == item.game).year >= startYear &&
                                 db.games.FirstOrDefault(g => g.id == item.game).year <= endYear)
                 .OrderBy(x => x.medal)
@@ -124,7 +124,7 @@ namespace OlympicGames.WebApiControllers
         [ResponseType(typeof(IList<AthleteResult>))]
         public IHttpActionResult GetTopResults([FromUri] int sportId)
         {
-            
+
             var athletes = db.athletes.ToDictionary(key => key.id, value => String.Format("{0} {1}", value.firstName, value.lastName));
 
             var results = db.results.Where(r => r.@event == sportId &&
@@ -132,16 +132,16 @@ namespace OlympicGames.WebApiControllers
                                                 r.result1 != "n/a")
                                     .ToList()
                                     .Select(item => new AthleteResult
-                                                    {
-                                                        Name = athletes[item.athlete],
-                                                        Result = isScoreResult(sportId) ? item.result1 + " points":
+                                    {
+                                        Name = athletes[item.athlete],
+                                        Result = isScoreResult(sportId) ? item.result1 + " points" :
                                                                  ((item.result1.Split('.')[0].Length == 1) ? "0:0" : "0:") + item.result1,
-                                                        NumResult = isScoreResult(sportId) ?
+                                        NumResult = isScoreResult(sportId) ?
                                                             Decimal.Parse(item.result1) :
                                                             getTimeResult(item.result1)
-                                                    });
+                                    });
 
-            
+
             if (isScoreResult(sportId))
             {
                 results = results.OrderByDescending(ar => ar.NumResult).Take(10);
@@ -167,16 +167,16 @@ namespace OlympicGames.WebApiControllers
             double resultInSeconds = 0;
             for (int i = 0; i < secondsSection.Count(); i++)
             {
-                resultInSeconds += int.Parse(secondsSection[i]) * (int) Math.Pow(60, secondsSection.Count() - i - 1);
+                resultInSeconds += int.Parse(secondsSection[i]) * (int)Math.Pow(60, secondsSection.Count() - i - 1);
             }
 
             if (resultSections.Length > 1)
             {
                 string miliseconds = resultSections[1].Split(' ')[0];
-                resultInSeconds += double.Parse(miliseconds) / (double) Math.Pow(10, miliseconds.Length);
+                resultInSeconds += double.Parse(miliseconds) / (double)Math.Pow(10, miliseconds.Length);
             }
 
-            return (decimal) resultInSeconds;
+            return (decimal)resultInSeconds;
         }
     }
 }

@@ -24,7 +24,7 @@
         .DataValueField("id")
         .ItemTemplateId("SelectedCountriesItemTemplate")
         .TagTemplateId("SelectedCountriesItemTemplate")
-        .Value(new int[] { 205, 72, 76, 204 })
+        .Value(new int[] { 72, 76, 204, 33 })
         .Events(events => events.Change("onChange").Select("onSelect").Open("onOpen"))
     )
 
@@ -42,6 +42,7 @@
         .Name("YearsSlider")
         .HtmlAttributes(new { style = "width: 100%" })
         .Min(1896)
+        .Values(1972, 2008)
         .Max(2008)
         .SmallStep(4)
         .LargeStep(4)
