@@ -18,7 +18,7 @@
         .Name("SelectedCountries")
         .Placeholder("Select maximum 10 countries ...")
         .DataSource(datasource => datasource
-            .Read(read => read.Url("api/countries"))
+            .Read(read => read.Url(@Url.Content("~/api/countries")))
         )
         .DataTextField("name")
         .DataValueField("id")
@@ -68,7 +68,7 @@
             .Read(read => read
                 .Type(HttpVerbs.Get)
                 .Data("getData")
-                .Url("api/results/GetMedalsByCountry")
+                .Url(@Url.Content("~/api/results/GetMedalsByCountry"))
             )
             .Group(group => group.Add(model => model.Country))
             .Sort(sort => sort.Add(model => model.Year))
@@ -117,7 +117,7 @@
                         .DataSource(dataSource => dataSource
                             .Custom()
                             .Transport(transport => transport
-                                .Read(read => read.Url("api/sports").Type(HttpVerbs.Get))
+                                .Read(read => read.Url(@Url.Content("~/api/sports")).Type(HttpVerbs.Get))
                             )
                         )
                         .ClientTemplateId("ListViewItemTemplate")
@@ -146,7 +146,7 @@
             .Transport(transport => transport
                 .Read(read => read
                     .Type(HttpVerbs.Get)
-                    .Url("api/results/GetPivotGridResultItems")
+                    .Url(@Url.Content("~/api/results/GetPivotGridResultItems"))
                     .Data("getData")
                 )
             )
