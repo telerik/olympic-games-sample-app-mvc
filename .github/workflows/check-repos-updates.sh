@@ -32,7 +32,6 @@ function getCurrentThemesVersion {
     echo "Current version is $CURRENT_GLOBAL_VERSION"
     echo "Current themes version is $CURRENT_GLOBAL_THEMES_VERSION"
 
-
 for file in `find . -type f -name "*.cshtml"`  
 do
     sed -i "s/$CURRENT_GLOBAL_VERSION/$LATEST_RELEASE/g" $file
@@ -72,4 +71,3 @@ else
 
     git diff
 fi
-
