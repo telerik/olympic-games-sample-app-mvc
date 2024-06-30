@@ -14,7 +14,7 @@ namespace OlympicGames.WebApiControllers
 {
     public class CountriesController : ApiController
     {
-        private OlympicsEntities db ;
+        private OlympicsEntities db;
 
         public CountriesController()
             : base()
@@ -23,9 +23,9 @@ namespace OlympicGames.WebApiControllers
         }
 
         public CountriesController(OlympicsEntities db)
-            :base()
+            : base()
         {
-            
+
             this.db = db;
         }
 
