@@ -36,6 +36,7 @@ namespace OlympicGames.WebApiControllers
         [Route("api/Sports/NoCat")]
         public IQueryable<sport> GetNoCategorySports()
         {
+            var sports = db.sports.ToList();
             return db.sports.Where(x => !x.category.HasValue);
         }
 

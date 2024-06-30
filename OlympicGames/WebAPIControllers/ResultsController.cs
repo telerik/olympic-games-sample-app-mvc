@@ -128,10 +128,7 @@ namespace OlympicGames.WebApiControllers
 
             var results = db.results.Where(item => item.medal.HasValue &&
                                                    countryIds.Contains(item.country) &&
-                                                   athletesBySportArr.Contains(item.athlete) &&
-                                                   db.games.FirstOrDefault(x => x.id == item.game).year >= startYear &&
-                                                   db.games.FirstOrDefault(x => x.id == item.game).year <= endYear)
-                                                   .OrderBy(x => x.medal);
+                                                   athletesBySportArr.Contains(item.athlete));
 
             var data = new List<PivotGridResultItem>();
 
@@ -144,15 +141,17 @@ namespace OlympicGames.WebApiControllers
                 var OlympicsYear = games[result.game].year;
                 var SportName = sports[athletes[result.athlete].sport].name;
 
-
-                data.Add(new PivotGridResultItem
+                if(OlympicsYear >= startYear && OlympicsYear <= endYear)
                 {
-                    MedalType = MedalType,
-                    CountryName = CountryName,
-                    OlympicsGame = OlympicsGame,
-                    OlympicsYear = OlympicsYear,
-                    SportName = SportName
-                });
+                    data.Add(new PivotGridResultItem
+                    {
+                        MedalType = MedalType,
+                        CountryName = CountryName,
+                        OlympicsGame = OlympicsGame,
+                        OlympicsYear = OlympicsYear,
+                        SportName = SportName
+                    });
+                }
             }
 
             return Ok(new { Data = data });
@@ -168,28 +167,40 @@ namespace OlympicGames.WebApiControllers
             var results = db.results.Where(r => r.@event == sportId &&
                                                 r.result1 != string.Empty &&
                                                 r.result1 != "n/a")
-                                    .ToList()
-                                    .Select(item => new AthleteResult
-                                                    {
-                                                        Name = athletes[item.athlete],
-                                                        Result = isScoreResult(sportId) ? item.result1 + " points":
-                                                                 ((item.result1.Split('.')[0].Length == 1) ? "0:0" : "0:") + item.result1,
-                                                        NumResult = isScoreResult(sportId) ?
-                                                            Decimal.Parse(item.result1) :
-                                                            getTimeResult(item.result1)
-                                                    });
+                                    .ToList();
 
-            
+
+            var athleteResults = new List<AthleteResult>();
+            foreach (var result in results)
+            {
+                if (athletes.ContainsKey(result.athlete))
+                {
+                    var athleteResult = new AthleteResult
+                    {
+                        Name = athletes[result.athlete],
+                        Result = isScoreResult(sportId) ? result.result1 + " points" :
+                                                                ((result.result1.Split('.')[0].Length == 1) ? "0:0" : "0:") + result.result1,
+                        NumResult = isScoreResult(sportId) ?
+                                                           Decimal.Parse(result.result1) :
+                                                           getTimeResult(result.result1)
+                    };
+
+                    athleteResults.Add(athleteResult);
+                }
+
+            };
+
+
             if (isScoreResult(sportId))
             {
-                results = results.OrderByDescending(ar => ar.NumResult).Take(10);
+                athleteResults = athleteResults.OrderByDescending(ar => ar.NumResult).Take(10).ToList();
             }
             else
             {
-                results = results.OrderBy(ar => ar.NumResult).Take(10);
+                athleteResults = athleteResults.OrderBy(ar => ar.NumResult).Take(10).ToList();
             }
 
-            return Ok(results);
+            return Ok(athleteResults);
         }
 
         private bool isScoreResult(int sportId)
