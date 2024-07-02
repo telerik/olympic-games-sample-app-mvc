@@ -6,18 +6,16 @@ The app demonstrates how easy it is to provide data visualization and management
 
 Public Url - [http://demos.telerik.com/aspnet-mvc/olympic-games](http://demos.telerik.com/aspnet-mvc/olympic-games/)
 
-## Requirments
+## Requirements
 
-* [Progress &reg; Telerik &reg; UI for ASP.NET MVC](http://www.telerik.com/aspnet-mvc)
-* Visual Studio 2015 or later
-* SQL Server Express
+* [Progress &reg; Telerik &reg; UI for ASP.NET MVC](https://www.telerik.com/aspnet-mvc)
+* Visual Studio 2022 or later - [Download](https://visualstudio.microsoft.com/vs/)
+* [SQLite](https://www.sqlite.org/)
+* Microsoft .NET framework 4.5 or later - [Download](https://www.microsoft.com/en-us/download/details.aspx?id=30653)
 
 ## Running this app
 
 1. [Add the Telerik Nuget feed as a Package Source](http://docs.telerik.com/aspnet-mvc/getting-started/nuget-install);
 1. Open `OlympicGames.sln` with Visual Studio;
-1. If needed, update the connection string in the `web.config` according to the SQL Server instance installed; Try setting (LocalDb)\MSSQLLocalDB for data source.
-    
-    > In case you need to regenerate the `Olympics.mdf`, you can use the script in `App_Data\Olympics.sql`.
 1. Hit `Ctrl` + `F5`.
 
