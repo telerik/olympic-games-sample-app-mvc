@@ -18,6 +18,7 @@
             },
             true)
         {
+            Database.SetInitializer<OlympicsEntities>(null);
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
